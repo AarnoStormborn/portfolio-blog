@@ -77,7 +77,7 @@ async function loadSinglePost() {
         }
 
         // 2. Fetch the posts manifest to find the correct post
-        const response = await fetch('/posts.json');
+        const response = await fetch('posts.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
