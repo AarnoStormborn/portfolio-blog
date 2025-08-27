@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function loadBlogPosts() {
     try {
-        const response = await fetch('/posts.json');
+        const response = await fetch('posts.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
