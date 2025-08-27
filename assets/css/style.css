@@ -1,0 +1,352 @@
+/* assets/css/style.css */
+
+/* 1. Define Color Palettes using CSS Variables */
+:root {
+    /* Light Mode (Default) */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #8540f5;      /* Purple Highlight */
+    --border-color: #D4D4D4;
+    --accent-primary: #8540f5;     /* Purple Highlight */
+    --text-dark: #2B2B2B;          /* Black Text */
+    --text-muted: #B3B3B3;
+    --text-on-btn: #FFFFFF;
+    --progress-track: #e9ecef; /* Neutral background for progress bar */
+}
+
+body[data-theme='dark'] {
+    /* Dark Mode */
+    --bg-primary: #120f21;         /* New Dark Blue/Purple Background */
+    --bg-secondary: #0b021a;      /* New Dark Purple for Footer/Highlights */
+    --border-color: #8540f5;
+    --accent-primary: #8540f5;     /* Purple Highlight */
+    --text-dark: #d1cddf;          /* Light Gray/Purple Text */
+    --text-muted: #D4D4D4;
+    --text-on-btn: #FFFFFF;
+    --progress-track: #3c3c3c; /* Darker track for dark mode */
+}
+
+/* 2. Apply base styles & STICKY FOOTER FIX */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-dark);
+    font-family: 'Jost', 'Lato', 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+main {
+    flex-grow: 1;
+}
+
+/* 3. Navbar Styling */
+.navbar {
+    background-color: var(--bg-primary) !important;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-primary) !important;
+    opacity: 0.7;
+}
+
+#nav-logo {
+    height: 40px; /* Adjusted height */
+    transition: filter 0.3s ease;
+}
+
+body[data-theme='dark'] #nav-logo {
+    filter: invert(1); /* Inverts logo color for dark mode */
+}
+
+
+/* 4. Layout Overrides */
+#hero .row {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Narrows the main content sections ONLY on the index page */
+.page-index main.container {
+    max-width: 840px;
+}
+
+/* Sets a wider container for blog and post pages */
+.page-blog main.container,
+.page-post main.container {
+    max-width: 75%;
+}
+
+
+/* 5. Profile Picture Styles (for hero section) */
+.profile-picture-container {
+    width: 220px; /* Increased size */
+    height: 220px;
+    margin: 0 auto; /* Center the container */
+    transition: background-color 0.3s ease;
+}
+
+.profile-picture-container img {
+    width: 100%; /* Image takes full size of the container */
+    height: 100%;
+    object-fit: contain; /* Changed from 'cover' to 'contain' to prevent cropping */
+    border-radius: 50%; /* Reverted to a simple circle */
+    background-color: var(--bg-secondary); /* Use theme variable for background */
+}
+
+
+/* Use text-muted class for secondary text */
+.text-secondary {
+    color: #6c757d !important; /* Using a standard muted gray for better readability */
+}
+
+body[data-theme='dark'] .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+/* FIX FOR FOOTER TEXT */
+body[data-theme='dark'] .text-muted {
+    color: var(--text-muted) !important;
+}
+
+
+/* 6. Headings and Accent Text */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark);
+}
+
+body[data-theme='dark'] h1, 
+body[data-theme='dark'] h2, 
+body[data-theme='dark'] h3, 
+body[data-theme='dark'] h4, 
+body[data-theme='dark'] h5, 
+body[data-theme='dark'] h6 {
+    color: var(--text-dark);
+}
+
+
+/* 7. Links and Buttons */
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--text-on-btn);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.8;
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+/* 8. Horizontal rulers and borders */
+hr {
+    border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
+}
+
+/* 9. Footer */
+footer {
+    background-color: var(--bg-secondary) !important;
+    transition: background-color 0.3s ease;
+}
+
+footer p.text-muted {
+    color: #FFFFFF !important;
+}
+
+/* 10. Blog Post Card Styling */
+.post-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* FIX FOR BLOG CARD TEXT COLOR */
+body[data-theme='dark'] .post-card {
+    color: var(--text-dark);
+}
+
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* 11. Timeline and Tabs Styles */
+.nav-tabs {
+    border-bottom: none; /* Removed gray line */
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    color: var(--text-muted);
+}
+
+.nav-tabs .nav-link.active {
+    background-color: transparent;
+    border-bottom: 2px solid var(--accent-primary);
+    color: var(--accent-primary) !important;
+}
+
+.timeline-wrapper {
+    position: relative;
+}
+
+.timeline-items {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2rem; /* Space for content above the line */
+}
+
+.timeline-line {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: var(--accent-primary);
+    bottom: 0; /* Position line at the bottom of the container */
+    left: 0;
+}
+
+.timeline-line::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: -4px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid var(--accent-primary);
+}
+
+.timeline-item {
+    position: relative;
+    text-align: center;
+    padding-bottom: 1.5rem; /* Space for the dot below the text */
+}
+
+.timeline-dot {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--accent-primary);
+    border-radius: 50%;
+    left: 50%;
+    bottom: 0; /* Position dot at the bottom of the item */
+    transform: translate(-50%, 50%); /* Center the dot on the line */
+}
+
+/* 12. Skills and Technologies Styles */
+.progress {
+    height: 0.5rem;
+    background-color: var(--progress-track); /* Use the new track color */
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: var(--accent-primary);
+}
+
+.tech-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body[data-theme='dark'] .tech-badge {
+    background-color: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+/* 13. Project Card List Styles */
+.project-card-list-item {
+    padding-top: 4rem; /* Increased top padding */
+    padding-bottom: 4rem; /* Increased bottom padding */
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-card-list-item:last-child {
+    border-bottom: none;
+}
+
+.project-card-list-item h4 {
+    margin-bottom: 1rem; /* Space below title */
+}
+
+.project-card-list-item .mb-3 {
+    margin-bottom: 1.5rem !important; /* More space below badges */
+}
+
+.btn-outline-primary {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--accent-primary);
+    color: var(--text-on-btn);
+}
+
+/* 14. Social Icons */
+.social-icons {
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    margin: 0 0.75rem;
+    color: var(--accent-primary);
+    transition: transform 0.3s;
+}
+
+.social-icon:hover {
+    transform: scale(1.5);
+    
+}
+
+footer .social-icon {
+    color: #FFFFFF;
+}
+
+/* 15. Contact Section */
+.contact-item {
+    margin-bottom: 3rem; /* Added margin to space out contact items */
+}
+
+.contact-item svg {
+    width: 32px;
+    height: 32px;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* 16. Responsiveness Fixes */
+@media (max-width: 767px) {
+    .page-index main.container {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+}
