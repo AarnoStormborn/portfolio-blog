@@ -47,7 +47,7 @@ async function loadBlogPosts() {
                             <h3 class="card-title">${post.title}</h3>
                             <p class="card-subtitle mb-2 text-muted">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                             <p class="card-text">${post.summary}</p>
-                            <a href="/post.html?post=${post.slug}" class="btn btn-primary">Read More</a>
+                            <a href="post.html?post=${post.slug}" class="btn btn-primary">Read More</a>
                         </div>
                     </div>
                 </div>
