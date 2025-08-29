@@ -35,7 +35,7 @@ async function loadBlogPosts() {
         container.innerHTML = ''; 
 
         if (posts.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No posts yet. Check back soon!</p>';
+            container.innerHTML = '<p class="text-center text-secondary">No posts yet. Coming soon!</p>';
             return;
         }
 
