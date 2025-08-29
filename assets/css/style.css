@@ -332,10 +332,6 @@ footer .social-icon {
 }
 
 /* 15. Contact Section */
-.contact-item {
-    margin-bottom: 3rem; /* Added margin to space out contact items */
-}
-
 .contact-item svg {
     width: 32px;
     height: 32px;
@@ -343,10 +339,26 @@ footer .social-icon {
     margin-bottom: 0.5rem;
 }
 
-/* 16. Responsiveness Fixes */
-@media (max-width: 767px) {
+.contact-item {
+    margin-bottom: 2rem;
+}
+
+/* 16. Mobile Responsiveness */
+@media (max-width: 767.98px) {
     .page-index main.container {
         padding-left: 3%;
         padding-right: 3%;
     }
 }
+
+/* FIX for Navbar Toggler Icon in Dark Mode */
+body[data-theme='dark'] .navbar-toggler-icon {
+    filter: invert(1) brightness(2) sepia(1) hue-rotate(200deg);
+}
+
+/* 17. Button in About Section */
+.btn-primary.btn-lg {
+    padding: 0.75rem 2.5rem;
+    font-weight: 500;
+}
+
