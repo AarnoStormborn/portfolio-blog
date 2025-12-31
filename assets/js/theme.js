@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the saved theme from localStorage or use system preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let currentTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+    let currentTheme = savedTheme ? savedTheme : 'light';
 
     // Apply the initial theme
     applyTheme(currentTheme);

@@ -436,7 +436,7 @@ body[data-theme='dark'] .work-card-content {
     padding-left: 0.5rem;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--text-dark);
     line-height: 1.5;
 }
 
@@ -455,32 +455,179 @@ body[data-theme='dark'] .work-card-content {
     border-radius: 50%;
 }
 
-/* 12. Skills and Technologies Styles */
-.progress {
-    height: 0.5rem;
-    background-color: var(--progress-track);
-    /* Use the new track color */
-    border-radius: 0.5rem;
+/* 12. Skills Card Grid Styles */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 100%;
+}
+
+.skill-card {
+    background-color: rgba(133, 64, 245, 0.1);
+    border: 1px solid rgba(133, 64, 245, 0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
     overflow: hidden;
 }
 
-.progress-bar {
-    background-color: var(--accent-primary);
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(133, 64, 245, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(30%, -30%);
 }
 
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(133, 64, 245, 0.2);
+}
+
+.skill-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(133, 64, 245, 0.2);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.skill-card-icon svg {
+    color: var(--accent-primary);
+}
+
+.skill-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.skill-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+body[data-theme='dark'] .skill-card {
+    background-color: rgba(133, 64, 245, 0.15);
+}
+
+/* 12b. Technologies Icon Grid Styles */
+.tech-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem 4rem;
+}
+
+.tech-category {
+    text-align: center;
+    min-width: 150px;
+}
+
+.tech-category-title {
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tech-icons-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.tech-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.tech-icon-item:hover {
+    transform: translateY(-5px);
+}
+
+.tech-icon-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.tech-icon-item:hover img {
+    background-color: rgba(133, 64, 245, 0.15);
+}
+
+.tech-icon-item span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+body[data-theme='dark'] .tech-icon-item img {
+    filter: brightness(1.1);
+}
+
+/* Theme-agnostic logo filters */
+/* White logos need to invert in light mode */
+.tech-icon-item img.logo-invert-light {
+    filter: invert(1);
+}
+
+body[data-theme='dark'] .tech-icon-item img.logo-invert-light {
+    filter: none;
+}
+
+/* Dark logos need to invert in dark mode */
+.tech-icon-item img.logo-invert-dark {
+    filter: none;
+}
+
+body[data-theme='dark'] .tech-icon-item img.logo-invert-dark {
+    filter: invert(1);
+}
+
+/* Tech Badge Pills for Projects */
 .tech-badge {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    margin: 0.25rem;
-    border: 1px solid var(--border-color);
+    padding: 0.35rem 0.85rem;
+    margin: 0.2rem;
+    background-color: rgba(133, 64, 245, 0.1);
+    border: 1px solid rgba(133, 64, 245, 0.4);
     border-radius: 2rem;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    color: var(--accent-primary);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tech-badge:hover {
+    background-color: rgba(133, 64, 245, 0.2);
+    transform: translateY(-2px);
 }
 
 body[data-theme='dark'] .tech-badge {
-    background-color: var(--bg-secondary);
+    background-color: rgba(133, 64, 245, 0.15);
     border-color: var(--accent-primary);
 }
 
@@ -636,9 +783,28 @@ footer .social-icon {
         transform: translate(-50%, -50%);
     }
 
-    /* Skills section spacing on mobile */
-    .skills-section .row>div {
-        margin-bottom: 1rem;
+    /* Skills section - single column on mobile */
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .skill-card {
+        padding: 1.25rem;
+    }
+
+    /* Technologies section on mobile */
+    .tech-categories {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .tech-category {
+        width: 100%;
+    }
+
+    .tech-icons-row {
+        gap: 1.5rem;
     }
 
     /* Contact section spacing on mobile */
