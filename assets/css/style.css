@@ -217,6 +217,28 @@ body[data-theme='dark'] .post-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* 10a. Blog Post Content Images */
+#post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 0.375rem;
+}
+
+#post-content img:has(+ em) {
+    margin-bottom: 0.25rem;
+}
+
+#post-content img + em {
+    display: block;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    font-style: normal;
+}
+
 /* 11. Timeline and Tabs Styles */
 .nav-tabs {
     border-bottom: none;
