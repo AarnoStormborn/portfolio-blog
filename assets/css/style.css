@@ -217,6 +217,12 @@ body[data-theme='dark'] .post-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+.post-card .btn {
+    margin-left: auto;
+    display: block;
+    width: fit-content;
+}
+
 /* 10a. Blog Post Content Images */
 #post-content img {
     max-width: 100%;
