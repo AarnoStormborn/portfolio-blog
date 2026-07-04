@@ -111,3 +111,4 @@ async function loadSinglePost() {
     document.getElementById('post-content').innerHTML = `<p class="text-center text-danger">Error: ${error.message}</p>`;
   }
 }
+
