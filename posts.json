@@ -3,14 +3,14 @@
     "slug": "event-driven-future-of-ai",
     "title": "The event driven future of AI",
     "date": "2026-07-27",
-    "summary": "The agent is a consumer, not an endpoint — why long-running AI work breaks the request/response shape and belongs on an event log.",
+    "summary": "The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.",
     "path": "blogs/event-driven-future-of-ai/blog.md"
   },
   {
     "slug": "ai-roadmap-is-not-a-roadmap",
     "title": "The AI roadmap is NOT a roadmap",
     "date": "2026-07-01",
-    "summary": "There is no roadmap into AI/ML — only a solution space built on prerequisites, exploration, and building badly until you get curious.",
+    "summary": "There is no roadmap into AI/ML; only a solution space built on prerequisites, exploration, and building badly until you get curious.",
     "path": "blogs/ai-roadmap-is-not-a-roadmap/blog.md"
   }
 ]
