@@ -15,6 +15,9 @@
     --text-on-btn: #FFFFFF;
     --progress-track: #e9ecef;
     /* Neutral background for progress bar */
+    --code-bg: #f5f2fb;
+    /* Soft lavender for code blocks */
+    --code-border: #e6def5;
 }
 
 body[data-theme='dark'] {
@@ -32,6 +35,9 @@ body[data-theme='dark'] {
     --text-on-btn: #FFFFFF;
     --progress-track: #3c3c3c;
     /* Darker track for dark mode */
+    --code-bg: #1c1733;
+    /* Lifted purple-navy for code blocks */
+    --code-border: #332a55;
 }
 
 /* 2. Apply base styles & STICKY FOOTER FIX */
@@ -243,6 +249,35 @@ body[data-theme='dark'] .post-card {
     font-size: 0.875rem;
     margin-bottom: 1.5rem;
     font-style: normal;
+}
+
+/* 10b. Blog Post Content Code Blocks */
+#post-content pre {
+    background-color: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#post-content code {
+    background-color: var(--code-bg);
+    color: var(--text-dark);
+    border: 1px solid var(--code-border);
+    border-radius: 0.25rem;
+    padding: 0.15em 0.4em;
+    font-size: 0.875em;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#post-content pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
 }
 
 /* 11. Timeline and Tabs Styles */
