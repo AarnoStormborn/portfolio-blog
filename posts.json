@@ -1,5 +1,12 @@
 [
   {
+    "slug": "holy-trinity-pi-herdr-opencode",
+    "title": "The Holy Trinity - pi, herdr and opencode go",
+    "date": "2026-08-16",
+    "summary": "My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn't worked.",
+    "path": "blogs/holy-trinity-pi-herdr-opencode/blog.md"
+  },
+  {
     "slug": "event-driven-future-of-ai",
     "title": "The event driven future of AI",
     "date": "2026-07-27",
