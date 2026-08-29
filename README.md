@@ -106,9 +106,14 @@ versions. CI fails if a hotlinked icon CDN reappears in any HTML file.
 ## Analytics
 
 GoatCounter, cookieless, configured in `scripts/site.config.js` under
-`analytics`. Register the counter code there (currently `hxrsh`) and the snippet
-starts reporting; set `enabled: false` to drop it from generated pages.
-`skip_local` keeps `localhost` out of the numbers.
+`analytics.code` (currently `aarnostormborn`, which must match the counter you
+registered — it becomes the subdomain in `https://<code>.goatcounter.com/count`).
+Set `enabled: false` to drop the snippet from generated pages.
+
+Local dev is excluded automatically: GoatCounter filters requests from
+`localhost` and private address ranges unless you pass `{"allow_local": true}`.
+Do not add `{"skip_local": ...}` — that key does not exist and count.js ignores
+it silently.
 
 ## Notes for future edits
 

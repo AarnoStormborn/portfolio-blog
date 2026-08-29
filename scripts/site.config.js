@@ -45,14 +45,12 @@ module.exports = {
   },
 
   analytics: {
-    // GoatCounter: free for non-commercial personal sites.
-    // Sign up at https://www.goatcounter.com/ choosing this code, then the
-    // snippet below starts reporting within a pageview or two.
-    // Set enabled: false to omit the snippet entirely.
+    // GoatCounter: cookieless, free for non-commercial personal sites.
+    // The counter code must match the one you registered at
+    // https://www.goatcounter.com/ — it becomes the subdomain in
+    // https://<code>.goatcounter.com/count. Set enabled: false to omit it.
     enabled: true,
-    code: "hxrsh",
-    // Local dev should never pollute the counter.
-    skipLocal: true,
+    code: "aarnostormborn",
   },
 
   blog: {

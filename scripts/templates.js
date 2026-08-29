@@ -57,10 +57,14 @@ const ICONS = {
 function analytics(base) {
   if (!cfg.analytics.enabled) return "";
   const host = `https://${cfg.analytics.code}.goatcounter.com/count`;
-  return `    <!-- GoatCounter: privacy-friendly, cookieless. Code lives in scripts/site.config.js -->
-    <script data-goatcounter="${attr(host)}"
-            data-goatcounter-settings='{"skip_local": ${cfg.analytics.skipLocal}}'
-            async src="//gc.zgo.at/count.js"></script>`;
+  // No data-goatcounter-settings: GoatCounter already filters local addresses
+  // (localhost, 127.0.0.1, 192.168.x) unless you explicitly pass
+  // {"allow_local": true}, which is the only key in that area. The previous
+  // version of this snippet passed {"skip_local": true} — a key that does not
+  // exist in the docs, silently ignored by count.js.
+  return `    <!-- GoatCounter: cookieless analytics. Counter code lives in
+         scripts/site.config.js under analytics.code. -->
+    <script data-goatcounter="${attr(host)}" async src="//gc.zgo.at/count.js"></script>`;
 }
 
 function nav(pagePath, active) {
