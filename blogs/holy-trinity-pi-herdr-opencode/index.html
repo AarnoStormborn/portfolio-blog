@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Holy Trinity - pi, herdr and opencode go — Harsh Singh</title>
+    <meta name="description" content="My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn't worked.">
+    <meta name="author" content="Harsh Singh">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#8540f5">
+    <link rel="canonical" href="https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Harsh Singh">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="The Holy Trinity - pi, herdr and opencode go — Harsh Singh">
+    <meta property="og:description" content="My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn't worked.">
+    <meta property="og:url" content="https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/">
+    <meta property="og:image" content="https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Holy Trinity - pi, herdr and opencode go — Harsh Singh">
+    <meta name="twitter:description" content="My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn't worked.">
+    <meta name="twitter:image" content="https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/cover.png">
+    <meta name="twitter:site" content="@TheGlobalMinima">
+    <meta name="twitter:creator" content="@TheGlobalMinima">
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Holy Trinity - pi, herdr and opencode go","description":"My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn't worked.","inLanguage":"en","datePublished":"2026-08-16","wordCount":2067,"author":{"@type":"Person","name":"Harsh Singh","url":"https://www.hxrsh.tech/index.html","sameAs":["https://github.com/AarnoStormborn","https://x.com/TheGlobalMinima","https://www.linkedin.com/in/harsh-singh-4428241b4/"]},"publisher":{"@type":"Person","name":"Harsh Singh","logo":{"@type":"ImageObject","url":"https://www.hxrsh.tech/assets/images/logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/"},"image":"https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/cover.png"}</script>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="../../assets/fonts/jost-latin.woff2">
+    <link rel="icon" type="image/png" href="../../assets/images/tab-icon.png">
+    <link rel="apple-touch-icon" href="../../assets/images/logo.png">
+    <link rel="alternate" type="application/rss+xml" title="Harsh Singh — Writing" href="../../feed.xml">
+    <!-- Bootstrap first, then our sheet, so our overrides win by order as well
+         as specificity. The generated navbar/container/grid markup depends on
+         this: omitting it leaves .container without its max-width and centers
+         nothing. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- GoatCounter: privacy-friendly, cookieless. Code lives in scripts/site.config.js -->
+    <script data-goatcounter="https://hxrsh.goatcounter.com/count"
+            data-goatcounter-settings='{"skip_local": true}'
+            async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body class="page-post">
+    <!-- Applied before first paint so dark mode does not flash white.
+         Keep in sync with assets/js/theme.js. -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var dark = saved === 'dark' ||
+                    (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (dark) document.body.setAttribute('data-theme', 'dark');
+            } catch (e) { /* private mode: stay on the system default */ }
+        })();
+    </script>
+    <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html" aria-label="Harsh Singh — home">
+                <picture>
+                    <source type="image/webp" srcset="../../assets/images/nav-logo.webp">
+                    <img id="nav-logo" src="../../assets/images/nav-logo.png" alt="Harsh Singh logo" width="180" height="180" fetchpriority="high">
+                </picture>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-blog active" href="../../blog.html" aria-current="page">Blog</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button id="theme-toggle" class="btn btn-link nav-link theme-toggle" type="button"
+                            aria-label="Toggle dark mode" aria-pressed="false">
+                            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5" id="main">
+        <div class="post-shell">
+            <article class="post-article">
+                <header class="post-header">
+                    <a class="post-back" href="../../blog.html">&larr; All posts</a>
+                    <h1 class="post-title display-5 fw-bold">The Holy Trinity - pi, herdr and opencode go</h1>
+                    <p class="post-meta">
+                        <time datetime="2026-08-16">16 August 2026</time>
+                        <span class="post-meta-sep" aria-hidden="true">·</span>
+                        <span>9 min read</span>
+                    </p>
+
+                </header>
+                <nav class="post-toc mb-4" aria-label="Table of contents">
+                    <h2 class="post-toc-title">Contents</h2>
+                    <ol class="post-toc-list">
+                        <li class="toc-depth-2"><a href="#the-boom-in-harness-engineering">The boom in harness engineering</a></li>
+                        <li class="toc-depth-2"><a href="#the-harness">The harness</a></li>
+                        <li class="toc-depth-2"><a href="#pi---the-minimalist-king">Pi - The minimalist king</a></li>
+                        <li class="toc-depth-3"><a href="#setting-up-pi">Setting up Pi</a></li>
+                        <li class="toc-depth-2"><a href="#subscriptions-for-llms">Subscriptions for LLMs</a></li>
+                        <li class="toc-depth-2"><a href="#herdr-tmux-for-agents">Herdr: tmux for agents</a></li>
+                        <li class="toc-depth-2"><a href="#the-holy-trinity">The Holy Trinity</a></li>
+                    </ol>
+                </nav>
+                <div class="post-body" id="post-body">
+                    <picture><source type="image/webp" srcset="cover.webp"><img src="cover.png" alt="cover" width="1600" height="640" loading="eager" fetchpriority="high" decoding="async" class="post-cover"></picture>
+                    <blockquote>
+                    <p>tldr; my current AI coding setup is Pi, Opencode Go and Herdr</p>
+                    </blockquote>
+                    <h2 id="the-boom-in-harness-engineering" class="post-heading">The boom in harness engineering<a class="heading-anchor" href="#the-boom-in-harness-engineering" aria-label="Permalink to this section">#</a></h2>
+                    <p>This year, we are seeing a boom in harness engineering. What initially started as simple scaffolding around an LLM is now one of the most sophisticated and highly sought-after systems. Along with this, LLMs also became more and more capable of taking on more coding and software engineering tasks, going from mere assistants and completion tools to full drivers of codebases. Not only have models become more capable but also more accessible in terms of costing. For example the early reasoning models from OpenAI, like GPT-4 as well as O-series, cost $60 or more per million tokens output. Now models with similar capabilities only cost around ~$10 per million tokens and there are some open source offerings going even cheaper for better performance.</p>
+                    <p>Early last year, with the release of Claude Code, everything changed. It was the first major harness that was released, specifically targeted towards coding tasks. Co-pilot existed before but it was only meant to be a chat assistant more than an agent that could take actions on the code. Since then we&#39;ve had hundreds of harnesses released. Each iterating upon weaknesses of its predecessors, nearly perfecting (nearly) the process today. The remaining gaps are mostly about lack of personalization and a lack of understanding of software engineering workflows for specific companies and engineers. There&#39;s also a line of applications where there are genuine limitations, like those involving a lot of hardware and firmware development, which I cannot comment on since I don&#39;t have much knowledge there. But for all the gaps in software engineering, this is where a lot of engineers today continue to build and fill out these gaps by building out agentic workflows, tools, skills, and extensions.</p>
+                    <p>In this article, I want to share my own setup, experiments and what has / hasn&#39;t worked for me. As mentioned earlier one gap of current systems is lack of personalization, so take this with a grain of salt. My setup works for me and may not work for you or you may have another setup that works for you better. Ultimately the idea is to tinker around and find what&#39;s best for you and build according to that. I just want to highlight what ideas and paths can be taken when you&#39;re looking to build something for yourself.</p>
+                    <h2 id="the-harness" class="post-heading">The harness<a class="heading-anchor" href="#the-harness" aria-label="Permalink to this section">#</a></h2>
+                    <p>The harness is the moat. The harness is the system. No matter what you build and no matter how much effort you put into it, it all depends on what harness you choose to run it on top of. Today there are hundreds of options and the most popular ones still make around eight to ten of those. Claude Code has been a standout harness but since then there have been those that have improved upon and iterated really well.</p>
+                    <p>When I first started using AI for coding, I was at a large company that used Github Co-pilot. Any choice for me beyond Co-pilot was an upgrade. Not that Co-pilot is bad but there is a lot that needs to be improved there or at least had to be improved back when I was using it last year.</p>
+                    <figure class="post-figure"><picture><source type="image/webp" srcset="01-harness-components.webp"><img src="01-harness-components.png" alt="harness components" width="1280" height="1026" loading="lazy" decoding="async"></picture><figcaption>harness components</figcaption></figure>
+                    <h2 id="pi---the-minimalist-king" class="post-heading">Pi - The minimalist king<a class="heading-anchor" href="#pi---the-minimalist-king" aria-label="Permalink to this section">#</a></h2>
+                    <p>The pi coding agent has quickly become one of the favorites. The reason is that it favors minimalism over out-of-the-box constructs and everything else can be added as an extension. One of the best parts is that pi can edit and extend itself upon a user&#39;s request. It has full access to its own prompts, its own tools, as well as an extension library that it can build out. In the long run this ability becomes very crucial as workflows keep evolving and the harness needs to keep up.</p>
+                    <h3 id="setting-up-pi" class="post-heading">Setting up Pi<a class="heading-anchor" href="#setting-up-pi" aria-label="Permalink to this section">#</a></h3>
+                    <p>Setting up Pi is a fun exercise because you&#39;re essentially working with a blank slate. It does not natively support the ideas of subagents, MCP servers, or plug-ins. What you do get though is extensions. You can ask Pi to build an extension for itself or turn to the Pi package manager, which allows installing open source extensions. Not only can you customize and extend its capabilities but you can also customize the TUI itself to make it look more suitable for your workflows.</p>
+                    <p>Here is a list of extensions that I use:</p>
+                    <ul>
+                    <li><strong>pi-mcp-adapter</strong>: allows the agent loop to connect to MCP servers. I like to keep this minimal and therefore I only use context7, which allows looking up most recent documentation for frameworks and libraries and the other one I use is Pydantic logfire, which enables smoother debugging.</li>
+                    <li><strong>pi-web-access</strong>: this is a necessity because being able to access the web was one of the core capabilities that made agents famous in the first place. Again you can customize this as much as you need to, by either checking other options or building one out for yourself.</li>
+                    <li><strong>graphify-pi</strong>: allows the agent to generate knowledge graphs for code bases and knowledge bases and then also provides the capability to query these graphs. Very useful for documentation, setting up other code bases, as well as building out a personal vault.</li>
+                    </ul>
+                    <p>There are some other smaller ones like raw-paste, usage-extension, and files-widget but these are mostly simple enough and work better for my flow. The ones listed above, I recommend.</p>
+                    <p>There&#39;s also a list of skills which are not specific to Pi but as you keep working ahead these also become very important in most of the engineering tasks. There are some things that you do repeatedly and it&#39;s best to create a workflow out of them through a skill. Here&#39;s a few that I use:</p>
+                    <ul>
+                    <li><p><strong>caveman</strong>: a very simple idea but a very effective outcome. Essentially the model speaks like a &quot;caveman&quot; and therefore uses fewer tokens (The office, S8 E2). In some cases it can save up to 65% tokens for the same outputs (as claimed on their GitHub repository).</p>
+                    <figure class="post-figure"><img src="04-few-word-do-trick.gif" alt="few word do trick" width="500" height="281" loading="lazy" decoding="async"><figcaption>few word do trick</figcaption></figure>
+                    </li>
+                    <li><p><strong>herdr</strong>: Herdr is a terminal multiplexer just like tmux, but specifically for agents and this skill basically allows the Pi agent to control the terminal. More on this later in the article.</p>
+                    </li>
+                    <li><p><strong>session-recap</strong>: if you work through long sessions, having a recap at the end of each output is very helpful, just lets you remain in the loop.</p>
+                    </li>
+                    <li><p><strong>skill-creator</strong>: this is a skill that teaches the agent how to create more custom skills. It&#39;s not really mandatory but helps the agent keep all the skills it creates streamlined and consistent.</p>
+                    </li>
+                    <li><p><strong>grill-me</strong>: if you&#39;re struggling with maintaining an understanding of your project, this is the perfect skill for you. Basically every time you ask the agent to plan something, it will counteract with questions to ensure that the planning goes in depth and with all the right details. This is one of the many skills by Matt Pocock, and you should definitely check some of his other contributions out.</p>
+                    </li>
+                    </ul>
+                    <p>Pi also has access to its own system prompt as well as its tools, something that, as you work through, you will have the capability to customize at any time to suit your flows. Currently I have not customized anything here as I like to keep the baseline capability minimal and limit all my customizations to the extensions and skills.</p>
+                    <p>The reason why I love the Pi coding agent is because coding with AI and AI in general was always sold as an entity that could personalize to you. So far with all the other coding harnesses, no matter how capable they may be, this was not the case. You always need to adapt to how these agents worked but Pi turned out to be the first one which could easily adapt to my workflows and my style.</p>
+                    <p>This is almost starting to sound like a sponsored post but I assure you it is not. Pi also stands out for its efficiency with token use and costing. A detailed study from Composio tested several harnesses on the same set of tasks and found that Pi consistently ranked very high in the list for lowest token usage as well as lowest time to completion.</p>
+                    <figure class="post-figure"><picture><source type="image/webp" srcset="02-composio-study.webp"><img src="02-composio-study.png" alt="composio study" width="811" height="822" loading="lazy" decoding="async"></picture><figcaption>Composio study <a href="https://composio.dev/content/best-ai-agent-harnesses" target="_blank" rel="noopener noreferrer nofollow">see here</a></figcaption></figure>
+                    <h2 id="subscriptions-for-llms" class="post-heading">Subscriptions for LLMs<a class="heading-anchor" href="#subscriptions-for-llms" aria-label="Permalink to this section">#</a></h2>
+                    <p>Alongside harnesses there are also several options today that allow you to access a gateway to several highly capable LLMs. Some are specific to providers such as Claude Pro/Max or the Codex Pro/Plus subscription, which allows access to OpenAI models.</p>
+                    <p>There are also several provider-agnostic options which, in my opinion, should be the top preference today. I personally use opencode go, which also provides a zen version. Some other popular options include:</p>
+                    <ul>
+                    <li>ollama cloud</li>
+                    <li>command code</li>
+                    <li>cline</li>
+                    </ul>
+                    <p>.. and a lot more</p>
+                    <p>Again this choice depends a lot more on how much you are willing to pay and which models work best for you. Different models react to different styles in different ways and therefore this is something that you need to experiment with.</p>
+                    <p>Currently what works really well for me is the Opencode Go subscription, which is considerably on the cheaper side ($10/month) of the spectrum and provides very generous usage on the open-source models. I have been using the new Deepseek v4-flash and v4-pro models quite extensively alongside the GLM models. Even with heavy usage I have never hit the session limit (this is also attributed to other parts of my setup, like the skills and the fact that I use the Pi agent, which is very token efficient). I also have the Claude Pro subscription (mainly for chat and cowork) which I only use when I need very heavy reasoning work.</p>
+                    <p>Opencode also has the Zen version of their subscription, which is based on usage credits. It provides access to many more models than Go does but it can turn out to be expensive very quickly as it is based on usage.</p>
+                    <h2 id="herdr-tmux-for-agents" class="post-heading">Herdr: tmux for agents<a class="heading-anchor" href="#herdr-tmux-for-agents" aria-label="Permalink to this section">#</a></h2>
+                    <p>One focus for myself this year has been to move to a more terminal-based coding setup. I moved from using VS Code and Cursor to neovim. If you work in this ecosystem, you would very well be aware of tmux, which is a terminal multiplexer. It basically allows persistent sessions of terminals working together in windows and panes. Working on the terminal also allowed me to use Opencode and Pi better because they primarily work through a TUI on the terminal.</p>
+                    <p>Herdr is a new terminal multiplexer which is specifically built with agents in mind. It allows easier interactions with workspaces, which encapsulate the panes and windows, and also set up git worktrees as sub-workspaces to the main workspace. It also neatly lists out all the active agents and classifies the ones that are in progress, require intervention, or have completed their tasks.</p>
+                    <p>Here is the best part. It comes built in with a skill that the coding agents can use to control Herdr. This is the primary reason why I don&#39;t use any extension that allows sub-agents within Pi. Since Pi can use herdr, it can launch other instances of Pi, or even other agents to offload and delegate some tasks. This creates a clean separation of concerns. One orchestrator agent can effectively launch multiple agents within their own worktrees, and you can navigate between each workspace easily. No sub agents run in the background, making it easier to validate outputs.</p>
+                    <figure class="post-figure"><picture><source type="image/webp" srcset="03-view-of-herdr.webp"><img src="03-view-of-herdr.png" alt="view of herdr" width="1600" height="1034" loading="lazy" decoding="async"></picture><figcaption>view of herdr</figcaption></figure>
+                    <p>There is a lot of potential with what you can do with herdr. I recommend checking it out and running a few experiments yourself.</p>
+                    <h2 id="the-holy-trinity" class="post-heading">The Holy Trinity<a class="heading-anchor" href="#the-holy-trinity" aria-label="Permalink to this section">#</a></h2>
+                    <p>My current setup involves:</p>
+                    <ul>
+                    <li>Pi for harness</li>
+                    <li>Opencode Go for access to LLMs</li>
+                    <li>Herdr for orchestration and handoffs</li>
+                    </ul>
+                    <p>This is nowhere near perfect, since I am still tinkering with it everyday. But so far, this gives me a fine balance between automation speed and control. The agents take up a lot more responsibility and work concurrently, but I am still able to validate and correct through the work.</p>
+                    <p>Like I mentioned before, this is what works for me and my working style. This may not work the same way for you. I hope you take away from this that experimentation is the core and building out customized workflows is easier than ever. Have fun!</p>
+                </div>
+            </article>
+
+            <aside class="post-rail">
+                <div class="post-author-card">
+                    <picture>
+                        <source type="image/webp" srcset="../../assets/images/dp.webp">
+                        <img src="../../assets/images/dp.png" alt="" width="500" height="500"
+                            loading="lazy" decoding="async">
+                    </picture>
+                    <div>
+                        <strong>Harsh Singh</strong>
+                        <p>AI engineering, agents, and the messy middle of shipping ML.</p>
+                        <a href="../../index.html">About me</a>
+                    </div>
+                </div>
+                <nav class="post-pager" aria-label="More posts">
+                    <a class="pager pager-next" href="../event-driven-future-of-ai/index.html"><span>Older</span><strong>The event driven future of AI</strong></a>
+                </nav>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="text-center py-4 mt-5">
+        <div class="social-icons mb-3">
+            <a href="https://github.com/AarnoStormborn" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            <a href="https://x.com/TheGlobalMinima" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg></a>
+            <a href="https://www.linkedin.com/in/harsh-singh-4428241b4/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+        </div>
+        <p class="text-muted">&copy; <span data-year>2026</span> Harsh Singh · <a href="../../blog.html">Blog</a> · <a href="../../feed.xml">RSS</a></p>
+    </footer>
+
+    <script src="../../assets/js/theme.js"></script>
+</body>
+
+</html>

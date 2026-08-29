@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The event driven future of AI — Harsh Singh</title>
+    <meta name="description" content="The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.">
+    <meta name="author" content="Harsh Singh">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#8540f5">
+    <link rel="canonical" href="https://www.hxrsh.tech/blogs/event-driven-future-of-ai/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Harsh Singh">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="The event driven future of AI — Harsh Singh">
+    <meta property="og:description" content="The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.">
+    <meta property="og:url" content="https://www.hxrsh.tech/blogs/event-driven-future-of-ai/">
+    <meta property="og:image" content="https://www.hxrsh.tech/blogs/event-driven-future-of-ai/cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The event driven future of AI — Harsh Singh">
+    <meta name="twitter:description" content="The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.">
+    <meta name="twitter:image" content="https://www.hxrsh.tech/blogs/event-driven-future-of-ai/cover.png">
+    <meta name="twitter:site" content="@TheGlobalMinima">
+    <meta name="twitter:creator" content="@TheGlobalMinima">
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The event driven future of AI","description":"The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.","inLanguage":"en","datePublished":"2026-07-27","wordCount":2566,"author":{"@type":"Person","name":"Harsh Singh","url":"https://www.hxrsh.tech/index.html","sameAs":["https://github.com/AarnoStormborn","https://x.com/TheGlobalMinima","https://www.linkedin.com/in/harsh-singh-4428241b4/"]},"publisher":{"@type":"Person","name":"Harsh Singh","logo":{"@type":"ImageObject","url":"https://www.hxrsh.tech/assets/images/logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.hxrsh.tech/blogs/event-driven-future-of-ai/"},"image":"https://www.hxrsh.tech/blogs/event-driven-future-of-ai/cover.png"}</script>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="../../assets/fonts/jost-latin.woff2">
+    <link rel="icon" type="image/png" href="../../assets/images/tab-icon.png">
+    <link rel="apple-touch-icon" href="../../assets/images/logo.png">
+    <link rel="alternate" type="application/rss+xml" title="Harsh Singh — Writing" href="../../feed.xml">
+    <!-- Bootstrap first, then our sheet, so our overrides win by order as well
+         as specificity. The generated navbar/container/grid markup depends on
+         this: omitting it leaves .container without its max-width and centers
+         nothing. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- GoatCounter: privacy-friendly, cookieless. Code lives in scripts/site.config.js -->
+    <script data-goatcounter="https://hxrsh.goatcounter.com/count"
+            data-goatcounter-settings='{"skip_local": true}'
+            async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body class="page-post">
+    <!-- Applied before first paint so dark mode does not flash white.
+         Keep in sync with assets/js/theme.js. -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var dark = saved === 'dark' ||
+                    (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (dark) document.body.setAttribute('data-theme', 'dark');
+            } catch (e) { /* private mode: stay on the system default */ }
+        })();
+    </script>
+    <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html" aria-label="Harsh Singh — home">
+                <picture>
+                    <source type="image/webp" srcset="../../assets/images/nav-logo.webp">
+                    <img id="nav-logo" src="../../assets/images/nav-logo.png" alt="Harsh Singh logo" width="180" height="180" fetchpriority="high">
+                </picture>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-blog active" href="../../blog.html" aria-current="page">Blog</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button id="theme-toggle" class="btn btn-link nav-link theme-toggle" type="button"
+                            aria-label="Toggle dark mode" aria-pressed="false">
+                            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5" id="main">
+        <div class="post-shell">
+            <article class="post-article">
+                <header class="post-header">
+                    <a class="post-back" href="../../blog.html">&larr; All posts</a>
+                    <h1 class="post-title display-5 fw-bold">The event driven future of AI</h1>
+                    <p class="post-meta">
+                        <time datetime="2026-07-27">27 July 2026</time>
+                        <span class="post-meta-sep" aria-hidden="true">·</span>
+                        <span>12 min read</span>
+                    </p>
+
+                </header>
+                <nav class="post-toc mb-4" aria-label="Table of contents">
+                    <h2 class="post-toc-title">Contents</h2>
+                    <ol class="post-toc-list">
+                        <li class="toc-depth-2"><a href="#the-chatbot-system-no-longer-holds">The chatbot system no longer holds</a></li>
+                        <li class="toc-depth-2"><a href="#the-rise-of-long-running-agents">The rise of long running agents</a></li>
+                        <li class="toc-depth-2"><a href="#event-driven-is-the-future">Event driven is the future</a></li>
+                        <li class="toc-depth-3"><a href="#what-is-event-driven-exactly">What is event driven, exactly</a></li>
+                        <li class="toc-depth-3"><a href="#components-of-an-event-driven-system">Components of an event driven system</a></li>
+                        <li class="toc-depth-3"><a href="#downsides-and-challenges">Downsides and challenges</a></li>
+                        <li class="toc-depth-2"><a href="#agents-are-nothing-but-a-series-of-events">Agents are nothing but a series of events</a></li>
+                        <li class="toc-depth-2"><a href="#how-agents-fit-in-the-event-driven-backend-design">How agents fit in the event driven backend design</a></li>
+                        <li class="toc-depth-2"><a href="#in-conclusion">In conclusion</a></li>
+                        <li class="toc-depth-2"><a href="#resources">Resources</a></li>
+                    </ol>
+                </nav>
+                <div class="post-body" id="post-body">
+                    <picture><source type="image/webp" srcset="cover.webp"><img src="cover.png" alt="cover" width="1600" height="640" loading="eager" fetchpriority="high" decoding="async" class="post-cover"></picture>
+                    <blockquote>
+                    <p>tldr; the agent is a consumer, not an endpoint</p>
+                    </blockquote>
+                    <p><em>resources tagged at the end;</em></p>
+                    <h2 id="the-chatbot-system-no-longer-holds" class="post-heading">The chatbot system no longer holds<a class="heading-anchor" href="#the-chatbot-system-no-longer-holds" aria-label="Permalink to this section">#</a></h2>
+                    <p>Almost every AI feature that shipped between 2023 and 2025 was built in the same shape. A client sends a request, a server calls a model, and tokens stream back over the connection the client opened. It is the shape of a conversation, and it worked because the unit of work really was a conversation. One turn in, one turn out, a few seconds of latency, all of it comfortably inside a single HTTP request.</p>
+                    <p>That shape has been breaking for the last year, and the reason is not that REST is bad. REST is fine. The problem is that a request and a response describe a transaction with a known, short duration, and the work we now hand to models does not have one. Once the agent loop runs inside the request handler, the lifetime of the work is coupled to the lifetime of a socket, and everything below follows from that.</p>
+                    <p>Timeouts are everywhere and none of them are yours. Between the client and your process sit a browser, a CDN, a load balancer, an ingress controller and a gateway, each with an opinion about how long a connection may stay idle. GitHub, on the receiving side, expects a 2XX response to a webhook within ten seconds and terminates the connection if you take longer, which is why their documentation tells you to queue the payload and process it in the background.</p>
+                    <p>Failure means starting over, and retries are unsafe. If the process restarts at step nine of twelve, there is no record of steps one through eight outside the memory that just disappeared. Worse, a client that retries a POST cannot know whether the first attempt already sent the email or issued the refund. A safe retry needs an identity for the work, and a bare request does not have one.</p>
+                    <p>There is no room for anyone else to listen. A request has one caller and one callee. The moment an evaluation pipeline, an audit trail and a cost tracker all need to observe the same run, you add calls inside the handler, and the handler becomes a distribution hub nobody designed.</p>
+                    <p>Waiting is not expressible. An agent that needs human approval before continuing would have to hold a connection open for hours, which no serious system allows. So teams reach for a database row, a polling loop and a state machine, and at that point they have built a queue by accident.</p>
+                    <figure class="post-figure"><picture><source type="image/webp" srcset="01-request-response-vs-event-driven.webp"><img src="01-request-response-vs-event-driven.png" alt="REST vs Event driven" width="1600" height="974" loading="lazy" decoding="async"></picture><figcaption>request and response vs event driven</figcaption></figure>
+                    <h2 id="the-rise-of-long-running-agents" class="post-heading">The rise of long running agents<a class="heading-anchor" href="#the-rise-of-long-running-agents" aria-label="Permalink to this section">#</a></h2>
+                    <p>This stopped being theoretical because task durations changed by orders of magnitude in about eighteen months, while the transport underneath them did not change at all.</p>
+                    <p>Anthropic&#39;s engineering team published a detailed account of building applications with a long running agent harness. In one run, a single sentence prompt asking for a browser based digital audio workstation produced a build that took three hours and fifty minutes and cost about $124 in tokens, with the generator agent alone running coherently for over two hours in one stretch. An earlier version of the harness ran six hours at roughly $200. Their baseline, a single agent with no harness, finished the same prompt in twenty minutes for $9 and produced an application whose core feature did not work.</p>
+                    <p>The interesting detail for a backend engineer is not the cost. It is that the harness was built out of things that look like infrastructure rather than prompting. Work was decomposed into chunks, agents handed context to each other through structured artifacts written to files so a fresh agent could resume, and a separate evaluator agent read the generator&#39;s output and wrote findings back for it to act on. That is a producer, a consumer, and a durable record between them.</p>
+                    <p>The providers moved the same direction. OpenAI&#39;s Responses API has a background mode whose entire purpose is to stop you waiting on the connection, because agents like Codex and Deep Research can take several minutes to solve a problem, and holding a socket open for that is a reliability problem rather than a design choice.</p>
+                    <div class="code-block"><span class="code-lang" aria-hidden="true">python</span><pre><code class="language-python hljs">resp = client.responses.create(
+                        model=<span class="hljs-string">&quot;gpt-5.6&quot;</span>,
+                        <span class="hljs-built_in">input</span>=<span class="hljs-string">&quot;Audit this repository and open pull requests for every failing test.&quot;</span>,
+                        background=<span class="hljs-literal">True</span>,          <span class="hljs-comment"># returns immediately with status &quot;queued&quot;</span>
+                    )
+
+                    <span class="hljs-comment"># The connection is gone. The work is not.</span>
+                    <span class="hljs-keyword">while</span> resp.status <span class="hljs-keyword">in</span> {<span class="hljs-string">&quot;queued&quot;</span>, <span class="hljs-string">&quot;in_progress&quot;</span>}:
+                        sleep(<span class="hljs-number">2</span>)
+                        resp = client.responses.retrieve(resp.<span class="hljs-built_in">id</span>)</code></pre></div><p>That is a job id and a status field. It is the smallest possible admission that the work has outlived the request, and once you accept it for the model call, you eventually accept it for everything around the model call.</p>
+                    <h2 id="event-driven-is-the-future" class="post-heading">Event driven is the future<a class="heading-anchor" href="#event-driven-is-the-future" aria-label="Permalink to this section">#</a></h2>
+                    <p>I want to be careful with this claim, because it is easy to overstate.</p>
+                    <p>Event driven architecture is not new and it did not appear because agents needed it. It is the conclusion microservices reached a decade ago, for the same reason, which is that synchronous calls couple the availability and latency of components together in ways that get worse as a system grows. Confluent&#39;s writing on multi agent systems makes the connection directly, framing agents as components that emit and listen for events rather than components that call each other.</p>
+                    <p>It is also not a universal answer. If your product is an assistant that replies in two seconds, a broker hop between every step buys nothing and costs latency. Request and response remains correct for short, interactive, single turn work. What is changing is the centre of gravity, as the share of AI work that is long, autonomous and asynchronous keeps rising, and that category needs a model which treats duration, failure and observation as normal conditions rather than exceptions.</p>
+                    <h3 id="what-is-event-driven-exactly" class="post-heading">What is event driven, exactly<a class="heading-anchor" href="#what-is-event-driven-exactly" aria-label="Permalink to this section">#</a></h3>
+                    <p>The core idea is a change in what a message means.</p>
+                    <p>In a request and response system, a message is an instruction with an expectation attached. It says do this, and I will wait here until you tell me what happened. The caller must know the callee, must be running while the callee runs, and must handle the callee&#39;s failure as its own.</p>
+                    <p>In an event driven system, a message is a statement of fact about something that already happened. It is past tense, immutable, and carries no expectation about who reads it. <code>agent.tool.returned</code> does not ask anyone to do anything. It records that a tool returned, and any number of parties may act on that, or none may.</p>
+                    <p>That single change buys the rest. Because the producer does not know its consumers, you can add a consumer without touching the producer. Because the fact is durable, a consumer that was offline can read it later. Because the record is retained, a consumer that crashed can read it again.</p>
+                    <h3 id="components-of-an-event-driven-system" class="post-heading">Components of an event driven system<a class="heading-anchor" href="#components-of-an-event-driven-system" aria-label="Permalink to this section">#</a></h3>
+                    <p>The event. A fact, with a schema, a key, a timestamp and an identifier. Keeping events small matters more here than in ordinary systems, because prompts and tool outputs are large, so the payload usually belongs in object storage with a reference in the event.</p>
+                    <p>Producers. Anything that observes a fact and writes it. A user action, a scheduled job, a change data capture stream off a database, an incoming third party webhook.</p>
+                    <p>The broker, or the log. The durable, ordered, replayable middle. Apache Kafka is the common reference point, with Pulsar and Redpanda alongside it, and managed services such as Amazon SQS and EventBridge, Google Pub/Sub and Azure Event Grid covering the same need with different trade offs.</p>
+                    <p>Topics and partitions. A topic is a named stream, a partition is the unit of ordering and parallelism inside it. Events sharing a key land on the same partition and stay ordered relative to each other, which is why keying agent events by task id matters.</p>
+                    <p>Consumer groups and offsets. A group is a set of identical workers sharing partitions between them, so adding a worker rebalances the load without the producer knowing, and a worker that dies has its partitions reassigned to its peers. The offset is how far a consumer has read, and committing it after the work is durable rather than before is the difference between a crash losing work and a crash repeating it.</p>
+                    <p>Schemas, delivery semantics and dead letters. A schema registry keeps loose coupling from becoming no coupling at all. Most systems deliver at least once, so duplicates are normal and handlers must be idempotent. Anything that exhausts its retry budget goes to a dead letter topic where a human can find it, rather than disappearing.</p>
+                    <p>Durable execution on top. Temporal and Restate apply the same principle at the level of a function rather than a service. They journal each completed step and, on a crash, replay the journal, returning cached results for steps that already finished. For the inner loop of an agent this is often a better fit than raw topics.</p>
+                    <h3 id="downsides-and-challenges" class="post-heading">Downsides and challenges<a class="heading-anchor" href="#downsides-and-challenges" aria-label="Permalink to this section">#</a></h3>
+                    <p>Most of the cost of this design lands on the people operating it.</p>
+                    <p>Debugging gets harder. No stack trace spans four topics and three services. You need correlation ids threaded through every event and distributed tracing from day one, and adding them later costs a quarter.</p>
+                    <p>Eventual consistency reaches the interface. Once a write is acknowledged before it is applied, someone has to decide what the user sees in the gap. That is a product question as much as an engineering one.</p>
+                    <p>Guarantees are narrower than people assume. Ordering holds within a partition, not across a topic. Exactly once delivery works within specific boundaries and does not extend to the third party API your tool just called, so you design for at least once and make effects idempotent.</p>
+                    <p>The broker is a real system. Running Kafka well requires people who know how to run Kafka. For a small team a managed queue and a jobs table in Postgres will carry you a long way, and choosing that deliberately is not a failure of ambition.</p>
+                    <p>Replay does not reproduce a model run. Replaying the log gives the same inputs, but a model may produce different output from the same input. Replay is for audit, evaluation and resuming, not deterministic reproduction, and treating it otherwise leads to bad conclusions during incident review.</p>
+                    <p>Storage is not cheap. Agent traces are large, and retention that felt free for click events is not free for full conversation histories. This is where keeping payloads out of the log pays for itself.</p>
+                    <h2 id="agents-are-nothing-but-a-series-of-events" class="post-heading">Agents are nothing but a series of events<a class="heading-anchor" href="#agents-are-nothing-but-a-series-of-events" aria-label="Permalink to this section">#</a></h2>
+                    <p>Strip the framing away and an agent loop is observe, decide, act, repeated. Each of those is a fact that happened at a point in time, so the loop is already an event sequence whether or not anyone wrote it down as one.</p>
+                    <figure class="post-figure"><picture><source type="image/webp" srcset="02-agent-loop-as-events.webp"><img src="02-agent-loop-as-events.png" alt="Event loop" width="1600" height="817" loading="lazy" decoding="async"></picture><figcaption>observe, decide, act — the loop is already an event sequence</figcaption></figure>
+                    <p>Writing it down changes what the loop is made of. History stops being a list held in a variable and becomes a log held outside the process. The state of an agent is then the fold of every event up to a given offset, and the agent is a function that reads the log and appends the next fact. Recovery becomes a read rather than a rebuild.</p>
+                    <p>This is quietly what the file based handoffs in Anthropic&#39;s harness were doing. An artifact written by one agent and read by the next is a durable, ordered record carrying state across a context reset. Same principle, filesystem instead of broker, which is reasonable at that scale and starts to strain as participants multiply.</p>
+                    <p>The side benefit is that the log you built for reliability is also the dataset you needed for evaluation. A replayed run gives you the exact tool calls, arguments and results rather than a summary written after the fact, and that is usually the hardest data to obtain when you sit down to build a test harness.</p>
+                    <h2 id="how-agents-fit-in-the-event-driven-backend-design" class="post-heading">How agents fit in the event driven backend design<a class="heading-anchor" href="#how-agents-fit-in-the-event-driven-backend-design" aria-label="Permalink to this section">#</a></h2>
+                    <p>Once the agent is expressed as a consumer and a producer, it stops being a special component.</p>
+                    <figure class="post-figure"><picture><source type="image/webp" srcset="03-event-driven-agent-backend.webp"><img src="03-event-driven-agent-backend.png" alt="Event driven agent design" width="1600" height="1021" loading="lazy" decoding="async"></picture><figcaption>the agent as a consumer and a producer</figcaption></figure>
+                    <p>The multi agent patterns people write about map onto this cleanly. Orchestrator and worker becomes a keyed topic and a consumer group, where the orchestrator distributes work by key and never manages a connection to any individual worker, so workers can be added or lost without it knowing. A hierarchy is the same arrangement applied recursively, each non leaf agent orchestrating its own subtree. A blackboard, where agents contribute to a shared workspace without addressing each other, is a topic that several agents both produce to and consume from.</p>
+                    <p>Human approval, the worst case under request and response, becomes unremarkable. The agent writes <code>agent.approval.needed</code> and stops. Hours later a person answers, a service writes <code>agent.approval.granted</code>, and a worker resumes from the offset where it stopped. Nothing was held open and nothing was lost.</p>
+                    <div class="code-block"><span class="code-lang" aria-hidden="true">python</span><pre><code class="language-python hljs">consumer = Consumer({
+                        <span class="hljs-string">&quot;bootstrap.servers&quot;</span>: <span class="hljs-string">&quot;localhost:9092&quot;</span>,
+                        <span class="hljs-string">&quot;group.id&quot;</span>: <span class="hljs-string">&quot;executor-agents&quot;</span>,
+                        <span class="hljs-string">&quot;auto.offset.reset&quot;</span>: <span class="hljs-string">&quot;earliest&quot;</span>,
+                        <span class="hljs-string">&quot;enable.auto.commit&quot;</span>: <span class="hljs-literal">False</span>,      <span class="hljs-comment"># commit only after the work is durable</span>
+                    })
+
+                    <span class="hljs-comment"># ...</span>
+
+                        <span class="hljs-keyword">if</span> already_processed(task_id, event[<span class="hljs-string">&quot;step_id&quot;</span>]):   <span class="hljs-comment"># dedupe on replay</span>
+                            consumer.commit(msg)
+                            <span class="hljs-keyword">continue</span>
+
+                        result = execute_tool(event[<span class="hljs-string">&quot;tool&quot;</span>], event[<span class="hljs-string">&quot;arguments&quot;</span>])
+
+                        producer.produce(
+                            <span class="hljs-string">&quot;agent.tool.returned&quot;</span>,
+                            key=task_id.encode(),          <span class="hljs-comment"># same key keeps a task&#x27;s events ordered</span>
+                            value=json.dumps({...}).encode(),
+                        )
+                        producer.flush()
+                        consumer.commit(msg)</code></pre></div><p>Two details there matter more than the rest. Automatic commits are off, so an offset only advances after the result is safely written, and the event is keyed by task id, so everything belonging to one task stays ordered relative to itself. Almost every duplicate action and out of order state bug I have seen in an agent system traces back to one of those two.</p>
+                    <p>If you are starting from a working synchronous system, the migration that has worked for me is boring. Give every run a task id and persist it, move the loop out of the request handler into a worker with a queue in between, write each step as a row rather than a variable, and make each tool call idempotent on the task id and step id. Only then ask whether the volume and the number of consumers justify a broker, because for a lot of teams the answer is honestly no.</p>
+                    <h2 id="in-conclusion" class="post-heading">In conclusion<a class="heading-anchor" href="#in-conclusion" aria-label="Permalink to this section">#</a></h2>
+                    <p>There is a version of this article that says Kafka is having a second moment because of AI, and I do not think that is the useful reading. The useful reading is that the AI side of the industry is arriving at problems the distributed systems side has worked on for twenty years, and arriving from an unusual direction, having started at a chat box rather than a transaction log.</p>
+                    <p>I wrote in an earlier piece that backend engineering was the most undervalued prerequisite for anyone trying to get into applied AI, and this is the clearest example I have of why. The hard parts of a long running agent are not prompting problems. They are ordering, idempotency, partial failure, backpressure, state handoff and observability, which is to say the parts of the job that were always hard and are now being met by more people.</p>
+                    <p>If you are building agents that run longer than a request should, the next thing worth doing is not a better prompt. It is writing down what your agent&#39;s events actually are, and seeing how much of your architecture that one exercise decides for you.</p>
+                    <h2 id="resources" class="post-heading">Resources<a class="heading-anchor" href="#resources" aria-label="Permalink to this section">#</a></h2>
+                    <ul>
+                    <li><a href="https://developers.openai.com/api/docs/guides/background" target="_blank" rel="noopener noreferrer nofollow">OpenAI, background mode guide</a></li>
+                    <li><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps" target="_blank" rel="noopener noreferrer nofollow">Anthropic Engineering, harness design for long running application development</a></li>
+                    <li><a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank" rel="noopener noreferrer nofollow">Anthropic Engineering, effective harnesses for long running agents</a></li>
+                    <li><a href="https://www.confluent.io/blog/event-driven-multi-agent-systems/" target="_blank" rel="noopener noreferrer nofollow">Confluent, a distributed state of mind, event driven multi agent systems</a></li>
+                    <li><a href="https://www.confluent.io/blog/the-future-of-ai-agents-is-event-driven/" target="_blank" rel="noopener noreferrer nofollow">Confluent, the future of AI agents is event driven</a></li>
+                    <li><a href="https://developer.ibm.com/tutorials/event-driven-agentic-ai-system-confluent-watsonx-orchestrate/" target="_blank" rel="noopener noreferrer nofollow">IBM Developer, building an event driven agentic AI system with Apache Kafka and watsonx Orchestrate</a></li>
+                    <li><a href="https://docs.github.com/en/webhooks/using-webhooks/best-practices-for-using-webhooks" target="_blank" rel="noopener noreferrer nofollow">GitHub Docs, best practices for using webhooks, including the ten second response window</a></li>
+                    <li><a href="https://temporal.io/blog/durable-execution-meets-ai-why-temporal-is-the-perfect-foundation-for-ai" target="_blank" rel="noopener noreferrer nofollow">Temporal, durable execution meets AI</a></li>
+                    <li><a href="https://developer.confluent.io/courses/apache-kafka/events/" target="_blank" rel="noopener noreferrer nofollow">Confluent Developer, Apache Kafka fundamentals</a></li>
+                    <li><a href="https://docs.confluent.io/kafka-clients/python/current/overview.html" target="_blank" rel="noopener noreferrer nofollow">Confluent Python client documentation</a></li>
+                    </ul>
+                </div>
+            </article>
+
+            <aside class="post-rail">
+                <div class="post-author-card">
+                    <picture>
+                        <source type="image/webp" srcset="../../assets/images/dp.webp">
+                        <img src="../../assets/images/dp.png" alt="" width="500" height="500"
+                            loading="lazy" decoding="async">
+                    </picture>
+                    <div>
+                        <strong>Harsh Singh</strong>
+                        <p>AI engineering, agents, and the messy middle of shipping ML.</p>
+                        <a href="../../index.html">About me</a>
+                    </div>
+                </div>
+                <nav class="post-pager" aria-label="More posts">
+                    <a class="pager pager-prev" href="../holy-trinity-pi-herdr-opencode/index.html"><span>Newer</span><strong>The Holy Trinity - pi, herdr and opencode go</strong></a>                    <a class="pager pager-next" href="../ai-roadmap-is-not-a-roadmap/index.html"><span>Older</span><strong>The AI roadmap is NOT a roadmap</strong></a>
+                </nav>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="text-center py-4 mt-5">
+        <div class="social-icons mb-3">
+            <a href="https://github.com/AarnoStormborn" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            <a href="https://x.com/TheGlobalMinima" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg></a>
+            <a href="https://www.linkedin.com/in/harsh-singh-4428241b4/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+        </div>
+        <p class="text-muted">&copy; <span data-year>2026</span> Harsh Singh · <a href="../../blog.html">Blog</a> · <a href="../../feed.xml">RSS</a></p>
+    </footer>
+
+    <script src="../../assets/js/theme.js"></script>
+</body>
+
+</html>

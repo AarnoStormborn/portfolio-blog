@@ -1,0 +1,54 @@
+name: verify
+
+# GitHub Pages publishes whatever is committed, so a stale or hand-edited
+# generated file goes live with no gate. This workflow is that gate: it fails if
+# the committed HTML/JSON is not exactly what the source markdown produces.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Regenerate from source and fail on drift
+        # --check compares the committed blogs/*/index.html, feed.xml,
+        # sitemap.xml, posts.json etc. against a fresh build and lists exactly
+        # which file is out of date.
+        run: npm run check
+
+      - name: Unit tests for the markdown/image pipeline
+        run: node scripts/test-render.js
+
+      - name: CSS / JSON-LD / JS syntax
+        run: node scripts/check-syntax.js
+
+      - name: Internal links and image references
+        run: node scripts/check-links.js
+
+      - name: Icon assets are self-hosted and present
+        run: python3 scripts/fetch-tech-icons.py --check
+
+      - name: Fail if anyone reintroduced a hotlinked icon CDN
+        # brandfetch began 302-ing hotlinks and broke six logos in production;
+        # devicons unpinned URLs are one rename away from the same failure.
+        run: |
+          if grep -rn 'brandfetch\|cdn.jsdelivr.net/gh/devicons' --include='*.html' .; then
+            echo "::error::Icons must be self-hosted under assets/images/tech/ (see scripts/fetch-tech-icons.py)"
+            exit 1
+          fi

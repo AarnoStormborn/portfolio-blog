@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-blog",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Static portfolio + blog for www.hxrsh.tech. Hand-written HTML, pre-rendered blog posts.",
+  "scripts": {
+    "images": "python3 scripts/optimize-images.py",
+    "build": "node scripts/build.js",
+    "serve": "python3 -m http.server 8000",
+    "check": "node scripts/build.js --check",
+    "dev": "npm run build && npm run serve",
+    "test": "node scripts/test-render.js && node scripts/check-syntax.js",
+    "lint": "node scripts/check-syntax.js",
+    "verify": "node scripts/build.js --check && node scripts/test-render.js && node scripts/check-syntax.js && node scripts/check-links.js",
+    "check-links": "node scripts/check-links.js"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.12.0",
+    "js-yaml": "^4.1.0",
+    "marked": "^12.0.2",
+    "playwright-core": "^1.62.1"
+  }
+}
