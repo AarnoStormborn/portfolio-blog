@@ -1,0 +1,186 @@
+{
+  "assets/images/dp.png": {
+    "w": 500,
+    "h": 500,
+    "webp": "assets/images/dp.webp",
+    "bytes": 16622,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/logo.png": {
+    "w": 192,
+    "h": 192,
+    "webp": "assets/images/logo.webp",
+    "bytes": 6756,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/nav-logo.png": {
+    "w": 180,
+    "h": 180,
+    "webp": "assets/images/nav-logo.webp",
+    "bytes": 10344,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/photo.jpeg": {
+    "w": 1000,
+    "h": 1333,
+    "webp": "assets/images/photo.webp",
+    "bytes": 86230,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/projects/autoencoder.png": {
+    "w": 1000,
+    "h": 569,
+    "webp": "assets/images/projects/autoencoder.webp",
+    "bytes": 21612,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/projects/cust-support.png": {
+    "w": 1000,
+    "h": 590,
+    "webp": "assets/images/projects/cust-support.webp",
+    "bytes": 22810,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/projects/gans.png": {
+    "w": 1000,
+    "h": 571,
+    "webp": "assets/images/projects/gans.webp",
+    "bytes": 22714,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/projects/mlops.png": {
+    "w": 700,
+    "h": 400,
+    "webp": "assets/images/projects/mlops.webp",
+    "bytes": 10518,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/projects/oldguy.png": {
+    "w": 802,
+    "h": 442,
+    "webp": "assets/images/projects/oldguy.webp",
+    "bytes": 28608,
+    "hasWebp": true,
+    "animated": false
+  },
+  "assets/images/tab-icon.png": {
+    "w": 180,
+    "h": 180,
+    "webp": "assets/images/tab-icon.webp",
+    "bytes": 9716,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/ai-roadmap-is-not-a-roadmap/cover.jpg": {
+    "w": 1200,
+    "h": 480,
+    "webp": "blogs/ai-roadmap-is-not-a-roadmap/cover.webp",
+    "bytes": 21194,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/ai-roadmap-is-not-a-roadmap/fafo.jpeg": {
+    "w": 400,
+    "h": 400,
+    "webp": "blogs/ai-roadmap-is-not-a-roadmap/fafo.jpeg",
+    "bytes": 18055,
+    "hasWebp": false,
+    "animated": false
+  },
+  "blogs/ai-roadmap-is-not-a-roadmap/harness-anatomy.jpeg": {
+    "w": 1376,
+    "h": 768,
+    "webp": "blogs/ai-roadmap-is-not-a-roadmap/harness-anatomy.webp",
+    "bytes": 91910,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/ai-roadmap-is-not-a-roadmap/mlops-phasen.jpg": {
+    "w": 1600,
+    "h": 1199,
+    "webp": "blogs/ai-roadmap-is-not-a-roadmap/mlops-phasen.webp",
+    "bytes": 122318,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/event-driven-future-of-ai/01-request-response-vs-event-driven.png": {
+    "w": 1600,
+    "h": 974,
+    "webp": "blogs/event-driven-future-of-ai/01-request-response-vs-event-driven.webp",
+    "bytes": 101786,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/event-driven-future-of-ai/02-agent-loop-as-events.png": {
+    "w": 1600,
+    "h": 817,
+    "webp": "blogs/event-driven-future-of-ai/02-agent-loop-as-events.webp",
+    "bytes": 81328,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/event-driven-future-of-ai/03-event-driven-agent-backend.png": {
+    "w": 1600,
+    "h": 1021,
+    "webp": "blogs/event-driven-future-of-ai/03-event-driven-agent-backend.webp",
+    "bytes": 107576,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/event-driven-future-of-ai/cover.png": {
+    "w": 1600,
+    "h": 640,
+    "webp": "blogs/event-driven-future-of-ai/cover.webp",
+    "bytes": 16502,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/holy-trinity-pi-herdr-opencode/01-harness-components.png": {
+    "w": 1280,
+    "h": 1026,
+    "webp": "blogs/holy-trinity-pi-herdr-opencode/01-harness-components.webp",
+    "bytes": 22044,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/holy-trinity-pi-herdr-opencode/02-composio-study.png": {
+    "w": 811,
+    "h": 822,
+    "webp": "blogs/holy-trinity-pi-herdr-opencode/02-composio-study.webp",
+    "bytes": 21002,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/holy-trinity-pi-herdr-opencode/03-view-of-herdr.png": {
+    "w": 1600,
+    "h": 1034,
+    "webp": "blogs/holy-trinity-pi-herdr-opencode/03-view-of-herdr.webp",
+    "bytes": 249698,
+    "hasWebp": true,
+    "animated": false
+  },
+  "blogs/holy-trinity-pi-herdr-opencode/04-few-word-do-trick.gif": {
+    "w": 500,
+    "h": 281,
+    "webp": "blogs/holy-trinity-pi-herdr-opencode/04-few-word-do-trick.gif",
+    "bytes": 666166,
+    "hasWebp": false,
+    "animated": true
+  },
+  "blogs/holy-trinity-pi-herdr-opencode/cover.png": {
+    "w": 1600,
+    "h": 640,
+    "webp": "blogs/holy-trinity-pi-herdr-opencode/cover.webp",
+    "bytes": 14460,
+    "hasWebp": true,
+    "animated": false
+  }
+}

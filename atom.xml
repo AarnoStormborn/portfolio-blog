@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Harsh Singh — Writing</title>
+  <subtitle>Notes on AI engineering, agents, harnesses, and shipping ML systems.</subtitle>
+  <link href="https://www.hxrsh.tech/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://www.hxrsh.tech/blog.html" rel="alternate" type="text/html" />
+  <id>https://www.hxrsh.tech/</id>
+  <updated>2026-08-16T00:00:00.000Z</updated>
+  <author><name>Harsh Singh</name><email>harshsingh90220@gmail.com</email></author>
+  <generator>scripts/build.js</generator>
+  <entry>
+    <title>The Holy Trinity - pi, herdr and opencode go</title>
+    <link href="https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/" rel="alternate" type="text/html" />
+    <id>https://www.hxrsh.tech/blogs/holy-trinity-pi-herdr-opencode/</id>
+    <updated>2026-08-16T00:00:00.000Z</updated>
+    <author><name>Harsh Singh</name></author>
+    <summary>My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn&apos;t worked.</summary>
+    <content type="html">My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn&apos;t worked.</content>
+  </entry>
+  <entry>
+    <title>The event driven future of AI</title>
+    <link href="https://www.hxrsh.tech/blogs/event-driven-future-of-ai/" rel="alternate" type="text/html" />
+    <id>https://www.hxrsh.tech/blogs/event-driven-future-of-ai/</id>
+    <updated>2026-07-27T00:00:00.000Z</updated>
+    <author><name>Harsh Singh</name></author>
+    <summary>The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.</summary>
+    <content type="html">The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.</content>
+  </entry>
+  <entry>
+    <title>The AI roadmap is NOT a roadmap</title>
+    <link href="https://www.hxrsh.tech/blogs/ai-roadmap-is-not-a-roadmap/" rel="alternate" type="text/html" />
+    <id>https://www.hxrsh.tech/blogs/ai-roadmap-is-not-a-roadmap/</id>
+    <updated>2026-07-01T00:00:00.000Z</updated>
+    <author><name>Harsh Singh</name></author>
+    <summary>There is no roadmap into AI/ML; only a solution space built on prerequisites, exploration, and building badly until you get curious.</summary>
+    <content type="html">There is no roadmap into AI/ML; only a solution space built on prerequisites, exploration, and building badly until you get curious.</content>
+  </entry>
+</feed>

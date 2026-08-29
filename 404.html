@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — page not found · Harsh Singh</title>
+    <meta name="description" content="That page does not exist. Links to the portfolio and blog instead.">
+    <meta name="author" content="Harsh Singh">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#8540f5">
+    <link rel="canonical" href="https://www.hxrsh.tech/404.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Harsh Singh">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="404 — page not found · Harsh Singh">
+    <meta property="og:description" content="That page does not exist. Links to the portfolio and blog instead.">
+    <meta property="og:url" content="https://www.hxrsh.tech/404.html">
+    <meta property="og:image" content="https://www.hxrsh.tech/assets/images/logo.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="404 — page not found · Harsh Singh">
+    <meta name="twitter:description" content="That page does not exist. Links to the portfolio and blog instead.">
+    <meta name="twitter:image" content="https://www.hxrsh.tech/assets/images/logo.png">
+    <meta name="twitter:site" content="@TheGlobalMinima">
+    <meta name="twitter:creator" content="@TheGlobalMinima">
+    <link rel="icon" type="image/png" href="assets/images/tab-icon.png">
+    <link rel="apple-touch-icon" href="assets/images/logo.png">
+    <link rel="alternate" type="application/rss+xml" title="Harsh Singh — Writing" href="feed.xml">
+    <!-- Bootstrap first, then our sheet, so our overrides win by order as well
+         as specificity. The generated navbar/container/grid markup depends on
+         this: omitting it leaves .container without its max-width and centers
+         nothing. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- GoatCounter: cookieless analytics. Counter code lives in
+         scripts/site.config.js under analytics.code. -->
+    <script data-goatcounter="https://aarnostormborn.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body class="page-404">
+    <!-- Applied before first paint so dark mode does not flash white.
+         Keep in sync with assets/js/theme.js. -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var dark = saved === 'dark' ||
+                    (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (dark) document.body.setAttribute('data-theme', 'dark');
+            } catch (e) { /* private mode: stay on the system default */ }
+        })();
+    </script>
+    <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" aria-label="Harsh Singh — home">
+                <picture>
+                    <source type="image/webp" srcset="assets/images/nav-logo.webp">
+                    <img id="nav-logo" src="assets/images/nav-logo.png" alt="Harsh Singh logo" width="180" height="180" fetchpriority="high">
+                </picture>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-blog" href="blog.html">Blog</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button id="theme-toggle" class="btn btn-link nav-link theme-toggle" type="button"
+                            aria-label="Toggle dark mode" aria-pressed="false">
+                            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5" id="main">
+        <div class="notfound text-center">
+            <p class="notfound-code" aria-hidden="true">404</p>
+            <h1 class="display-6 fw-bold">Nothing here yet</h1>
+            <p class="text-secondary">The page you wanted moved, or never existed. Try the blog or the portfolio.</p>
+            <p class="mt-4">
+                <a class="btn btn-primary" href="blog.html">Read the blog</a>
+                <a class="btn btn-outline-primary ms-2" href="index.html">Go home</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="text-center py-4 mt-5">
+        <div class="social-icons mb-3">
+            <a href="https://github.com/AarnoStormborn" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            <a href="https://x.com/TheGlobalMinima" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg></a>
+            <a href="https://www.linkedin.com/in/harsh-singh-4428241b4/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+        </div>
+        <p class="text-muted">&copy; <span data-year>2026</span> Harsh Singh · <a href="blog.html">Blog</a> · <a href="feed.xml">RSS</a></p>
+    </footer>
+
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

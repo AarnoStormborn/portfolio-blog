@@ -4,20 +4,29 @@
     "title": "The Holy Trinity - pi, herdr and opencode go",
     "date": "2026-08-16",
     "summary": "My current AI coding setup — Pi as the harness, Opencode Go for LLM access, and Herdr for orchestration and handoffs. The why, the how, and what has and hasn't worked.",
-    "path": "blogs/holy-trinity-pi-herdr-opencode/blog.md"
+    "path": "blogs/holy-trinity-pi-herdr-opencode/blog.md",
+    "staticUrl": "blogs/holy-trinity-pi-herdr-opencode/",
+    "readingTime": 9,
+    "cover": "blogs/holy-trinity-pi-herdr-opencode/cover.png"
   },
   {
     "slug": "event-driven-future-of-ai",
     "title": "The event driven future of AI",
     "date": "2026-07-27",
     "summary": "The agent is a consumer, not an endpoint. Why long-running AI work breaks the request/response shape and belongs on an event log.",
-    "path": "blogs/event-driven-future-of-ai/blog.md"
+    "path": "blogs/event-driven-future-of-ai/blog.md",
+    "staticUrl": "blogs/event-driven-future-of-ai/",
+    "readingTime": 12,
+    "cover": "blogs/event-driven-future-of-ai/cover.png"
   },
   {
     "slug": "ai-roadmap-is-not-a-roadmap",
     "title": "The AI roadmap is NOT a roadmap",
     "date": "2026-07-01",
     "summary": "There is no roadmap into AI/ML; only a solution space built on prerequisites, exploration, and building badly until you get curious.",
-    "path": "blogs/ai-roadmap-is-not-a-roadmap/blog.md"
+    "path": "blogs/ai-roadmap-is-not-a-roadmap/blog.md",
+    "staticUrl": "blogs/ai-roadmap-is-not-a-roadmap/",
+    "readingTime": 11,
+    "cover": "blogs/ai-roadmap-is-not-a-roadmap/cover.jpg"
   }
 ]

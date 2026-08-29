@@ -1,84 +1,259 @@
 /* assets/css/style.css */
 
-/* 1. Define Color Palettes using CSS Variables */
+/* 1. Design tokens
+ *
+   Colour pairs here are contrast-checked, because several were not: --text-muted
+   at 2.1:1 and the dark-mode accent at 3.6:1 both failed WCAG AA, on small text
+   specifically. Values are chosen so that
+     - body text clears AAA (7:1)
+     - secondary/muted text clears AA for small text (4.5:1)
+     - accent-as-link clears AA for small text
+     - white-on-footer-purple clears AA
+   Keep that in mind when editing: light-mode accent is deliberately darker than
+   the brand purple #8540f5 so it survives at 14px; #8540f5 remains the large
+   accent/border colour where 3:1 is enough. */
 :root {
     /* Light Mode (Default) */
+    --brand: #8540f5;
+    /* The purple you see, used for borders and large accents */
     --bg-primary: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --bg-subtle: #F7F5FC;
+    /* Lavender-tinted panel background */
     --bg-secondary: #8540f5;
-    /* Purple Highlight */
-    --border-color: #D4D4D4;
-    --accent-primary: #8540f5;
-    /* Purple Highlight */
-    --text-dark: #2B2B2B;
-    /* Black Text */
-    --text-muted: #B3B3B3;
+    /* Footer band */
+    --bg-footer: #4C1599;
+    /* Deep enough that white text passes AA at body size (11.2:1) */
+    --border-color: #DCD8EA;
+    --border-strong: rgba(133, 64, 245, 0.45);
+    --accent-primary: #6D28D9;
+    /* Accessible form of the brand purple for text/links */
+    --accent-strong: #5A1FB8;
+    --accent-soft: rgba(133, 64, 245, 0.10);
+    --accent-soft-hover: rgba(133, 64, 245, 0.18);
+    --text-dark: #1D1D24;
+    /* 16.8:1 on white */
+    --text-body: #33333C;
+    /* 11.6:1 — prose colour, softer than pure black */
+    --text-muted: #6B6B76;
+    /* 5.3:1 — was #B3B3B3 at 2.1:1 */
     --text-on-btn: #FFFFFF;
-    --progress-track: #e9ecef;
-    /* Neutral background for progress bar */
-    --code-bg: #f5f2fb;
-    /* Soft lavender for code blocks */
-    --code-border: #e6def5;
+    --progress-track: #E9ECEF;
+    --code-bg: #F5F2FB;
+    --code-border: #E4DCF7;
+    --code-text: #2A2440;
+    --shadow-sm: 0 1px 2px rgba(29, 29, 36, 0.05);
+    --shadow-md: 0 6px 20px rgba(29, 29, 36, 0.07);
+    --shadow-accent: 0 10px 30px rgba(109, 40, 217, 0.16);
+
+    /* Type scale — a real ratio instead of ad-hoc sizes, so headings line up
+       across the three pages. 1.25 (major third). */
+    --step--2: 0.71rem;
+    --step--1: 0.84rem;
+    --step-0: 1rem;
+    --step-1: 1.19rem;
+    --step-2: 1.49rem;
+    --step-3: 1.87rem;
+    --step-4: 2.34rem;
+    --step-5: 2.93rem;
+    --leading-body: 1.68;
+    --leading-tight: 1.22;
+    --measure: 68ch;
+    /* Comfortable reading width; was a 75%-of-viewport container */
+
+    /* Spacing rhythm */
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --space-4: 2.5rem;
+    --space-5: 4rem;
+    --radius-sm: 0.375rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 1rem;
+    --nav-height: 68px;
+    --dur: 180ms;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body[data-theme='dark'] {
     /* Dark Mode */
-    --bg-primary: #120f21;
-    /* New Dark Blue/Purple Background */
-    --bg-secondary: #0b021a;
-    /* New Dark Purple for Footer/Highlights */
-    --border-color: #8540f5;
-    --accent-primary: #8540f5;
-    /* Purple Highlight */
-    --text-dark: #d1cddf;
-    /* Light Gray/Purple Text */
-    --text-muted: #D4D4D4;
-    --text-on-btn: #FFFFFF;
-    --progress-track: #3c3c3c;
-    /* Darker track for dark mode */
-    --code-bg: #1c1733;
-    /* Lifted purple-navy for code blocks */
-    --code-border: #332a55;
+    --brand: #8540f5;
+    --bg-primary: #120F21;
+    --bg-elevated: #1A162E;
+    --bg-subtle: #1C1733;
+    --bg-secondary: #0B021A;
+    --bg-footer: #0B021A;
+    --border-color: #332A55;
+    --border-strong: rgba(169, 139, 245, 0.5);
+    --accent-primary: #A98BF5;
+    /* 6.9:1 on #120F21 — was #8540f5 at 3.6:1 */
+    --accent-strong: #C4ABFF;
+    --accent-soft: rgba(169, 139, 245, 0.14);
+    --accent-soft-hover: rgba(169, 139, 245, 0.24);
+    --text-dark: #E4E1F0;
+    --text-body: #C9C4D9;
+    --text-muted: #AFA9C2;
+    --text-on-btn: #0B021A;
+    --progress-track: #3C3C3C;
+    --code-bg: #1C1733;
+    --code-border: #332A55;
+    --code-text: #DCD6F0;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+    --shadow-accent: 0 10px 30px rgba(169, 139, 245, 0.16);
 }
 
-/* 2. Apply base styles & STICKY FOOTER FIX */
+
+/* 2. Base styles & STICKY FOOTER FIX */
+
+/* Self-hosted variable font: one 26 KB request replaces three Google Fonts
+   render-blocking stylesheets (Montserrat + Lato + Jost, all loaded, only Jost
+   used). Weight range 300-700, latin subset. */
+@font-face {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('../fonts/jost-latin.woff2') format('woff2');
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 body {
     background-color: var(--bg-primary);
-    color: var(--text-dark);
-    font-family: 'Jost', 'Lato', 'Montserrat', sans-serif;
+    color: var(--text-body);
+    font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: var(--step-0);
+    line-height: var(--leading-body);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    /* Smooth transition */
+    transition: background-color var(--dur) ease, color var(--dur) ease;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 main {
     flex-grow: 1;
 }
 
-/* 3. Navbar Styling */
+/* The sticky navbar used to cover the top of every anchor target. Two ways to
+   land on an anchor here: nav hash links (sections) and post heading permalinks
+   (.post-heading). */
+section[id],
+h2[id].post-heading,
+h3[id].post-heading {
+    scroll-margin-top: calc(var(--nav-height) + 1.5rem);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: var(--space-2);
+    top: -3rem;
+    z-index: 1080;
+    padding: 0.6rem 1rem;
+    background-color: var(--accent-primary);
+    color: var(--text-on-btn);
+    border-radius: var(--radius-sm);
+    transition: top var(--dur) var(--ease);
+}
+
+.skip-link:focus {
+    top: var(--space-2);
+    color: var(--text-on-btn);
+    opacity: 1;
+}
+
+
+/* 3. Navbar */
 .navbar {
     background-color: var(--bg-primary) !important;
     border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    min-height: var(--nav-height);
+    transition: background-color var(--dur) ease, border-color var(--dur) ease,
+        box-shadow var(--dur) ease;
 }
 
-.navbar-brand,
+/* Only lift the navbar once it is actually overlapping content; a permanent
+   shadow on a 1px-bordered bar just reads as dirt. */
+.navbar.is-scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
 .nav-link {
     color: var(--text-dark) !important;
     font-weight: 500;
+    font-size: var(--step--1);
+    letter-spacing: 0.01em;
+    position: relative;
+    padding-inline: 0.7rem !important;
+}
+
+/* Underline indicator instead of the old opacity dip, which read as a disabled
+   state and dropped the link below contrast on hover. */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 0.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--accent-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after {
+    transform: scaleX(1);
 }
 
 .nav-link:hover,
+.nav-link:focus-visible,
 .nav-link.active {
     color: var(--accent-primary) !important;
-    opacity: 0.7;
+    opacity: 1;
+}
+
+/* The Blog link is a permanent highlight in the old design; give it weight only
+   when it is not the current page, so "highlighted" and "you are here" do not
+   fight each other. */
+.nav-link-blog:not(.active) {
+    font-weight: 700;
 }
 
 #nav-logo {
     height: 40px;
-    /* Adjusted height */
-    transition: filter 0.3s ease;
+    width: auto;
+    transition: filter var(--dur) ease;
 }
 
 body[data-theme='dark'] #nav-logo {
@@ -86,11 +261,73 @@ body[data-theme='dark'] #nav-logo {
     /* Inverts logo color for dark mode */
 }
 
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    color: var(--text-dark) !important;
+    transition: background-color var(--dur) ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--accent-soft);
+}
+
+.theme-toggle:hover::after {
+    display: none;
+}
+
+/* Show the icon for the mode you would switch *to*. theme.js keeps [data-theme]
+   on <body> in sync, and this replaces the old JS d-none class toggling so the
+   correct icon is right even before JS runs. */
+.theme-toggle .icon-moon {
+    display: none;
+}
+
+.theme-toggle .icon-sun {
+    display: block;
+}
+
+body[data-theme='dark'] .theme-toggle .icon-moon {
+    display: block;
+}
+
+body[data-theme='dark'] .theme-toggle .icon-sun {
+    display: none;
+}
+
 
 /* 4. Layout Overrides */
+
+/* Hero sizing moved out of an inline style="" attribute into CSS, so it can
+   respond to viewport and motion preferences. 65vh of flex-centred space made
+   the name float in the middle of the screen on laptops and collapse on phones. */
+#hero {
+    display: flex;
+    align-items: center;
+    min-height: clamp(340px, 52vh, 560px);
+    padding: var(--space-4) 0 var(--space-5);
+}
+
 #hero .row {
     max-width: 960px;
     margin: 0 auto;
+}
+
+#hero h1 {
+    font-size: clamp(2.6rem, 1.4rem + 4.6vw, 4.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+
+#hero .lead {
+    font-size: clamp(1.02rem, 0.95rem + 0.4vw, 1.25rem);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+    margin-top: var(--space-1);
 }
 
 /* Narrows the main content sections ONLY on the index page */
@@ -130,8 +367,7 @@ body[data-theme='dark'] #nav-logo {
 
 /* Use text-muted class for secondary text */
 .text-secondary {
-    color: #6c757d !important;
-    /* Using a standard muted gray for better readability */
+    color: var(--text-muted) !important;
 }
 
 body[data-theme='dark'] .text-secondary {
@@ -168,188 +404,667 @@ body[data-theme='dark'] h6 {
 a {
     color: var(--accent-primary);
     text-decoration: none;
-    transition: opacity 0.3s ease;
+    transition: color var(--dur) ease, opacity var(--dur) ease;
 }
 
-a:hover {
-    opacity: 0.7;
+/* Hover used to drop opacity to 0.7, which faded already-small secondary text
+   below readable contrast. Change the colour and underline instead. */
+a:hover,
+a:focus-visible {
+    color: var(--accent-strong);
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.btn {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: transform var(--dur) var(--ease), background-color var(--dur) ease,
+        border-color var(--dur) ease, color var(--dur) ease, box-shadow var(--dur) ease;
 }
 
 .btn-primary {
     background-color: var(--accent-primary);
     border-color: var(--accent-primary);
     color: var(--text-on-btn);
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-.btn-primary:hover {
-    opacity: 0.8;
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    background-color: var(--accent-strong);
+    border-color: var(--accent-strong);
+    /* Keep the label legible in dark mode, where --accent-primary is a light
+       lavender: white-on-lavender fails AA, dark-on-lavender does not. */
+    color: var(--text-on-btn);
+    opacity: 1;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-accent);
+}
+
+.btn-outline-primary {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus-visible {
     background-color: var(--accent-primary);
     border-color: var(--accent-primary);
+    color: var(--text-on-btn);
+    opacity: 1;
+    transform: translateY(-1px);
 }
 
 /* 8. Horizontal rulers and borders */
 hr {
     border-top: 1px solid var(--border-color);
-    transition: border-color 0.3s ease;
+    opacity: 1;
+    transition: border-color var(--dur) ease;
 }
 
 /* 9. Footer */
 footer {
-    background-color: var(--bg-secondary) !important;
-    transition: background-color 0.3s ease;
+    background-color: var(--bg-footer) !important;
+    transition: background-color var(--dur) ease;
 }
 
 footer p.text-muted {
     color: #FFFFFF !important;
+    font-size: var(--step--1);
 }
 
-/* 10. Blog Post Card Styling */
+footer a {
+    color: #FFFFFF;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    opacity: 0.82;
+}
+
+footer a:hover,
+footer a:focus-visible {
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+/* 10. Blog list cards (blog.html, rendered by assets/js/blog.js) */
 .post-card {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-elevated);
     border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    border-radius: var(--radius-md);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) ease,
+        border-color var(--dur) ease, background-color var(--dur) ease;
 }
 
-/* FIX FOR BLOG CARD TEXT COLOR */
 body[data-theme='dark'] .post-card {
+    background-color: var(--bg-elevated);
     color: var(--text-dark);
 }
 
-
 .post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-strong);
 }
 
-.post-card .btn {
-    margin-left: auto;
+.post-card .card-title {
+    font-size: var(--step-2);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    letter-spacing: -0.015em;
+    margin-bottom: var(--space-1);
+}
+
+.post-card .card-title a {
+    color: inherit;
+}
+
+.post-card .post-card-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    margin-bottom: var(--space-2);
+}
+
+.post-card .card-text {
+    color: var(--text-body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    margin-bottom: var(--space-3);
+}
+
+/* Whole-card link: the stretched pseudo-element makes the card clickable while
+   keeping a real, focusable, copyable <a> in the markup. */
+.card-link-stretch {
+    position: static;
+}
+
+.card-link-stretch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+/* Any anchor that must stay independently clickable sits above the overlay.
+   Tag chips inside the card meta are the case this covers. */
+.post-card-meta .post-tag {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---- 10b. Post pages: layout shell ------------------------------------- */
+
+.post-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.post-header {
+    margin-bottom: var(--space-4);
+}
+
+.post-back {
+    display: inline-block;
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: var(--space-2);
+}
+
+.post-back:hover {
+    color: var(--accent-primary);
+}
+
+.post-title {
+    font-size: clamp(1.9rem, 1.2rem + 2.6vw, var(--step-5));
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-2);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.post-meta-sep {
+    opacity: 0.6;
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-2);
+}
+
+.post-tag {
+    font-size: var(--step--2);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    background-color: var(--accent-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+}
+
+.post-tag:hover {
+    background-color: var(--accent-soft-hover);
+    text-decoration: none;
+}
+
+/* Active tag filter bar on blog.html */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+}
+
+/* Table of contents: inline above the article on narrow screens, sticky rail
+   on wide ones. */
+.post-toc {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+}
+
+.post-toc-title {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 0 0 var(--space-1);
+}
+
+.post-toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: toc;
+    font-size: var(--step--1);
+}
+
+.post-toc-list li {
+    margin-bottom: 0.3rem;
+}
+
+.post-toc-list a {
+    color: var(--text-body);
+}
+
+.post-toc-list a:hover {
+    color: var(--accent-primary);
+}
+
+.toc-depth-3 {
+    padding-left: var(--space-2);
+    font-size: var(--step--2);
+}
+
+.post-rail {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+}
+
+.post-author-card {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--step--1);
+}
+
+.post-author-card img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background-color: var(--bg-secondary);
+}
+
+.post-author-card p {
+    margin: 0.25rem 0;
+    color: var(--text-muted);
+}
+
+.post-pager {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.pager {
     display: block;
-    width: fit-content;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    transition: border-color var(--dur) ease, transform var(--dur) var(--ease);
 }
 
-/* 10a. Blog Post Content Images */
+.pager:hover {
+    border-color: var(--border-strong);
+    transform: translateX(2px);
+    text-decoration: none;
+}
+
+.pager span {
+    display: block;
+    font-size: var(--step--2);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.pager strong {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: var(--step-0);
+    line-height: 1.4;
+}
+
+/* ---- 10c. Article typography ------------------------------------------- */
+/* Both selectors are intentional: .post-body is the pre-rendered page from
+   scripts/build.js, #post-content is the client-side fallback in post.html.
+   They must look identical or the two render paths visibly disagree. */
+.post-body,
+#post-content {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-body);
+}
+
+.post-body > *,
+#post-content > * {
+    max-width: var(--measure);
+}
+
+.post-body p,
+#post-content p {
+    margin-bottom: 1.25rem;
+}
+
+.post-body h2,
+#post-content h2 {
+    font-size: var(--step-3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: var(--leading-tight);
+    margin: var(--space-5) 0 var(--space-2);
+}
+
+.post-body h3,
+#post-content h3 {
+    font-size: var(--step-2);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    margin: var(--space-4) 0 var(--space-1);
+}
+
+.post-body h4,
+#post-content h4 {
+    font-size: var(--step-1);
+    font-weight: 600;
+    margin: var(--space-3) 0 var(--space-1);
+}
+
+.post-body ul,
+.post-body ol,
+#post-content ul,
+#post-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.post-body li,
+#post-content li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+}
+
+.post-body li > ul,
+.post-body li > ol,
+#post-content li > ul,
+#post-content li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.post-body blockquote,
+#post-content blockquote {
+    border-left: 3px solid var(--accent-primary);
+    background-color: var(--accent-soft);
+    padding: var(--space-2) var(--space-3);
+    margin: var(--space-3) 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-style: normal;
+}
+
+.post-body blockquote p:last-child,
+#post-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.post-body table,
+#post-content table {
+    width: 100%;
+    margin: var(--space-3) 0;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+    display: block;
+    overflow-x: auto;
+}
+
+.post-body th,
+.post-body td,
+#post-content th,
+#post-content td {
+    border: 1px solid var(--border-color);
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+}
+
+.post-body th,
+#post-content th {
+    background-color: var(--bg-subtle);
+    font-weight: 700;
+}
+
+.post-body img,
 #post-content img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 1.5rem auto;
-    border-radius: 0.375rem;
+    margin: 0;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
 }
 
-#post-content img:has(+ em) {
-    margin-bottom: 0.25rem;
-}
-
-#post-content img + em {
+.post-body picture,
+#post-content picture {
     display: block;
+}
+
+/* Figures replace the old "img followed by a bare <em>" hack. */
+.post-figure,
+.post-body figure,
+#post-content figure {
+    margin: var(--space-4) 0;
+    max-width: 100%;
+}
+
+.post-figure figcaption,
+.post-body figcaption,
+#post-content figcaption {
     text-align: center;
     color: var(--text-muted);
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
-    font-style: normal;
+    font-size: var(--step--1);
+    margin-top: 0.6rem;
+    line-height: 1.5;
 }
 
-/* 10b. Blog Post Content Code Blocks */
+.post-cover {
+    width: 100%;
+}
+
+/* Heading permalink: invisible until hover/focus, so the text stays clean. */
+.post-heading {
+    position: relative;
+}
+
+.heading-anchor {
+    margin-left: 0.4rem;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity var(--dur) ease;
+    text-decoration: none !important;
+}
+
+.post-heading:hover .heading-anchor,
+.heading-anchor:focus-visible {
+    opacity: 1;
+}
+
+/* ---- 10d. Code blocks -------------------------------------------------- */
+/* Build-time highlight.js output (scripts/markdown.js) uses .code-block;
+   the client-side fallback emits bare <pre>, so style both. */
+.code-block,
+.post-body pre,
 #post-content pre {
     background-color: var(--code-bg);
     border: 1px solid var(--code-border);
-    border-radius: 0.5rem;
-    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    margin: var(--space-3) 0;
+}
+
+.code-block {
+    position: relative;
+}
+
+.code-block pre,
+.post-body pre,
+#post-content pre {
+    padding: var(--space-2) 1.25rem;
     overflow-x: auto;
-    margin: 1.5rem 0;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border: none;
+    background: transparent;
+    margin: 0;
+    transition: background-color var(--dur) ease, border-color var(--dur) ease;
 }
 
-#post-content code {
+.code-block .code-lang {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.15rem 0.6rem;
+    font-size: var(--step--2);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
     background-color: var(--code-bg);
-    color: var(--text-dark);
-    border: 1px solid var(--code-border);
-    border-radius: 0.25rem;
-    padding: 0.15em 0.4em;
-    font-size: 0.875em;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-left: 1px solid var(--code-border);
+    border-bottom: 1px solid var(--code-border);
+    border-radius: 0 var(--radius-md) 0 var(--radius-sm);
 }
 
+.post-body pre code,
 #post-content pre code {
-    background-color: transparent;
+    display: block;
+    background: transparent;
     border: none;
     padding: 0;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo,
+        Consolas, monospace;
     font-size: 0.875rem;
-    line-height: 1.6;
+    line-height: 1.65;
+    color: var(--code-text);
+    white-space: pre;
 }
 
-/* 11. Timeline and Tabs Styles */
-.nav-tabs {
-    border-bottom: none;
-    /* Removed gray line */
+/* Inline code. Scoped to exclude code inside <pre>, which the rules above own. */
+.post-body :not(pre) > code,
+#post-content :not(pre) > code {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-sm);
+    padding: 0.15em 0.4em;
+    font-size: 0.875em;
+    transition: background-color var(--dur) ease, border-color var(--dur) ease;
 }
 
-.nav-tabs .nav-link {
-    border: none;
+/* highlight.js token colours, tuned to the existing purple palette instead of
+   importing the ~25 KB stock highlight.js theme stylesheet. */
+.hljs-comment,
+.hljs-quote {
     color: var(--text-muted);
+    font-style: italic;
 }
 
-.nav-tabs .nav-link.active {
-    background-color: transparent;
-    border-bottom: 2px solid var(--accent-primary);
-    color: var(--accent-primary) !important;
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
+    color: var(--accent-primary);
+    font-weight: 600;
 }
 
-.timeline-wrapper {
-    position: relative;
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+    color: #0E7C5A;
 }
 
-.timeline-items {
-    position: relative;
+body[data-theme='dark'] .hljs-string,
+body[data-theme='dark'] .hljs-regexp,
+body[data-theme='dark'] .hljs-addition {
+    color: #6EDB8F;
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-link {
+    color: #A04A00;
+}
+
+body[data-theme='dark'] .hljs-number,
+body[data-theme='dark'] .hljs-meta,
+body[data-theme='dark'] .hljs-link {
+    color: #F5B971;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-section,
+.hljs-name {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-built_in,
+.hljs-type {
+    color: #7A4CC0;
+}
+
+body[data-theme='dark'] .hljs-attr,
+body[data-theme='dark'] .hljs-variable,
+body[data-theme='dark'] .hljs-built_in,
+body[data-theme='dark'] .hljs-type {
+    color: #C4ABFF;
+}
+
+/* ---- 10e. 404 page ----------------------------------------------------- */
+.page-404 main {
+    min-height: 50vh;
     display: flex;
-    justify-content: space-around;
-    padding-top: 2rem;
-    /* Space for content above the line */
+    align-items: center;
 }
 
-.timeline-line {
-    position: absolute;
-    height: 2px;
-    width: 100%;
-    background-color: var(--accent-primary);
-    bottom: 0;
-    /* Position line at the bottom of the container */
-    left: 0;
+.notfound-code {
+    font-size: clamp(4rem, 14vw, 8rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent-soft);
+    -webkit-text-stroke: 1px var(--border-strong);
+    margin: 0 0 var(--space-2);
 }
 
-.timeline-line::after {
-    content: '';
-    position: absolute;
-    right: -2px;
-    top: -4px;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid var(--accent-primary);
-}
-
-.timeline-item {
-    position: relative;
-    text-align: center;
-    padding-bottom: 1.5rem;
-    /* Space for the dot below the text */
-}
-
-.timeline-dot {
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    background-color: var(--accent-primary);
-    border-radius: 50%;
-    left: 50%;
-    bottom: 0;
-    /* Position dot at the bottom of the item */
-    transform: translate(-50%, 50%);
-    /* Center the dot on the line */
-}
-
-/* 11b. Work Experience Card Styles */
+/* 11. Work Experience Card Styles */
 .work-timeline {
     position: relative;
     padding-left: 2rem;
@@ -399,31 +1114,136 @@ body[data-theme='dark'] .post-card {
 }
 
 body[data-theme='dark'] .work-card-content {
-    background-color: rgba(11, 2, 26, 0.6);
+    background-color: var(--bg-elevated);
 }
 
+/* Each role collapses to just title / badge / company / dates / location, with
+   the bullet list behind a native <details>. Native rather than JS because the
+   bullets are the most crawlable thing on the page: a recruiter or a search
+   engine must still see them with scripts off, and they are the reason a
+   recruiter keeps reading. */
+.work-details {
+    /* summary is a list-item by default (Bootstrap sets display:list-item),
+       which paints a browser disclosure triangle we replace with our own. */
+    &>summary {
+        list-style: none;
+    }
+
+    &>summary::-webkit-details-marker {
+        display: none;
+    }
+}
+
+/* Collapsed header. Two deliberate rows rather than one flex-wrap line: at the
+   840px content column the longest role ("Backend Dev Intern" + Internship +
+   "Genius Vision Digital" + dates + city) overflows one line, and a bare
+   flex-wrap orphaned the disclosure caret onto a lonely second line. The meta
+   row forces the break at the same place on every card, so all three summaries
+   share one height. */
 .work-card-header {
-    margin-bottom: 1rem;
-}
-
-.work-title-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
     flex-wrap: wrap;
+    gap: 0.3rem 0.75rem;
+    cursor: pointer;
+    /* The whole header is the click target, so give it a hover affordance and
+       bleed the padding past the card padding so the highlight is not inset. */
+    margin: -0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--dur) ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.work-title-row svg {
+.work-card-header:hover {
+    background-color: var(--accent-soft);
+}
+
+.work-card-header:hover .work-caret {
+    color: var(--accent-primary);
+}
+
+.work-card-header:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Flex items default to min-width:auto, which means a long role title refuses
+   to shrink and pushes the caret out instead of wrapping. */
+.work-card-header>*,
+.work-meta-row>* {
+    min-width: 0;
+}
+
+.work-card-header .work-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-dark);
+}
+
+.work-card-header .work-title svg {
     color: var(--text-dark);
     flex-shrink: 0;
 }
 
-.work-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0;
-    color: var(--text-dark);
+.work-caret {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    color: var(--text-muted);
+    transition: transform var(--dur) var(--ease), color var(--dur) ease;
+}
+
+.work-details[open]>.work-card-header .work-caret {
+    transform: rotate(180deg);
+}
+
+/* Row 2. Nothing sets `order`, and source order already puts this last, so the
+   wrap is structural (flex-basis: 100%) rather than accidental. */
+.work-meta-row {
+    flex: 1 1 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem 1.25rem;
+    flex-wrap: wrap;
+}
+
+.work-card-header .work-company {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.work-card-header .work-company svg {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.work-date,
+.work-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+}
+
+.work-date svg,
+.work-location svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.work-details[open]>.work-card-header {
+    margin-bottom: 1rem;
 }
 
 .work-badge {
@@ -448,29 +1268,10 @@ body[data-theme='dark'] .work-card-content {
     border: 1px solid var(--accent-primary);
 }
 
-.work-company-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.4rem;
-}
-
-.work-company-row svg {
-    color: var(--accent-primary);
-    flex-shrink: 0;
-}
-
 .work-company {
     color: var(--accent-primary);
     font-weight: 500;
     font-size: 0.95rem;
-}
-
-.work-meta-row {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
 }
 
 .work-date,
@@ -633,12 +1434,33 @@ body[data-theme='dark'] .skill-card {
     object-fit: contain;
     border-radius: 0.5rem;
     padding: 0.25rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    transition: background-color 0.3s ease;
+    background-color: rgba(133, 64, 245, 0.04);
+    border: 1px solid transparent;
+    transition: background-color var(--dur) ease, border-color var(--dur) ease;
 }
 
 .tech-icon-item:hover img {
-    background-color: rgba(133, 64, 245, 0.15);
+    background-color: var(--accent-soft);
+    border-color: var(--border-strong);
+}
+
+/* Dark brand marks are invisible on the dark background: Django's #092E20
+   measured 1.43:1, and the brightness(1.1) filter previously used here barely
+   moved it. Rather than tune a filter per logo, dark mode gives every icon a
+   light chip, so all artwork renders exactly as it does on white. One rule,
+   no per-icon exceptions, and a new logo cannot regress. This replaced a set of
+   .logo-invert-light / .logo-invert-dark filter rules, which are now gone: with
+   the chip in place they were no-ops, and keeping the class names alongside dead
+   CSS only invites someone to "fix" them. */
+body[data-theme='dark'] .tech-icon-item img {
+    background-color: #F5F3FA;
+    border-color: var(--border-color);
+    filter: none;
+}
+
+body[data-theme='dark'] .tech-icon-item:hover img {
+    background-color: #FFFFFF;
+    border-color: var(--border-strong);
 }
 
 .tech-icon-item span {
@@ -649,25 +1471,6 @@ body[data-theme='dark'] .skill-card {
 
 body[data-theme='dark'] .tech-icon-item img {
     filter: brightness(1.1);
-}
-
-/* Theme-agnostic logo filters */
-/* White logos need to invert in light mode */
-.tech-icon-item img.logo-invert-light {
-    filter: invert(1);
-}
-
-body[data-theme='dark'] .tech-icon-item img.logo-invert-light {
-    filter: none;
-}
-
-/* Dark logos need to invert in dark mode */
-.tech-icon-item img.logo-invert-dark {
-    filter: none;
-}
-
-body[data-theme='dark'] .tech-icon-item img.logo-invert-dark {
-    filter: invert(1);
 }
 
 /* Tech Badge Pills for Projects */
@@ -715,16 +1518,6 @@ body[data-theme='dark'] .tech-badge {
 .project-card-list-item .mb-3 {
     margin-bottom: 1.5rem !important;
     /* More space below badges */
-}
-
-.btn-outline-primary {
-    color: var(--accent-primary);
-    border-color: var(--accent-primary);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--accent-primary);
-    color: var(--text-on-btn);
 }
 
 /* 14. Social Icons */
@@ -808,44 +1601,6 @@ footer .social-icon {
         margin-bottom: 1.5rem;
     }
 
-    /* Experience section timeline adjustments for mobile */
-    .timeline-items {
-        flex-direction: column;
-        gap: 2rem;
-        padding-left: 1rem;
-    }
-
-    .timeline-line {
-        width: 2px;
-        height: 100%;
-        left: 0;
-        bottom: auto;
-        top: 0;
-    }
-
-    .timeline-line::after {
-        right: auto;
-        left: -4px;
-        top: auto;
-        bottom: -2px;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid var(--accent-primary);
-    }
-
-    .timeline-item {
-        text-align: left;
-        padding-left: 1.5rem;
-        padding-bottom: 0;
-    }
-
-    .timeline-dot {
-        left: 0;
-        top: 50%;
-        bottom: auto;
-        transform: translate(-50%, -50%);
-    }
-
     /* Skills section - single column on mobile */
     .skills-grid {
         grid-template-columns: 1fr;
@@ -888,8 +1643,188 @@ body[data-theme='dark'] .navbar-toggler-icon {
     filter: invert(1) brightness(2) sepia(1) hue-rotate(200deg);
 }
 
-/* 17. Button in About Section */
-.btn-primary.btn-lg {
-    padding: 0.75rem 2.5rem;
-    font-weight: 500;
+/* 17. Removed: .btn-primary.btn-lg styled an About-section button that uses
+   plain .btn-primary, and .text-body-secondary was a Bootstrap class name added
+   as a hedge against the wrong utility. Nothing on the site references either. */
+
+/* ---------------------------------------------------------------------------
+   18. Responsive behaviour for the post layout
+   ------------------------------------------------------------------------ */
+
+/* Rail moves beside the article only when there is real room for it. Measured:
+   at a 992px breakpoint the 240px rail leaves the article 464px wide (~44 chars
+   per line, below the 45–90 readability band), so the two-column layout starts
+   at 1200px instead, where the column still gets ~656px. Below that the rail
+   stacks under the article and the text keeps its measure. */
+@media (min-width: 1200px) {
+    .post-shell {
+        grid-template-columns: minmax(0, 1fr) 240px;
+        max-width: 1080px;
+        align-items: start;
+    }
+
+    .post-rail {
+        position: sticky;
+        top: calc(var(--nav-height) + var(--space-3));
+    }
+
+    .post-toc {
+        grid-column: 1 / -1;
+        order: -1;
+        background: transparent;
+        border: none;
+        border-left: 2px solid var(--border-strong);
+        border-radius: 0;
+        padding: 0 var(--space-3);
+        columns: 2;
+        column-gap: var(--space-4);
+    }
+
+    .post-toc-title {
+        column-span: all;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .post-toc {
+        margin-bottom: var(--space-4);
+    }
+
+    /* Stacked rail: the author card and pager read better side by side than as
+       two full-width bands. */
+    .post-rail {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    /* On narrower screens the permalink marker is unreachable by touch and
+       only adds visual noise next to headings. */
+    .heading-anchor {
+        display: none;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .post-body,
+    #post-content {
+        font-size: 1rem;
+    }
+
+    .post-body h2,
+    #post-content h2 {
+        font-size: var(--step-2);
+        margin-top: var(--space-4);
+    }
+
+    .post-body h3,
+    #post-content h3 {
+        font-size: var(--step-1);
+    }
+
+    .post-figure,
+    .post-body figure,
+    #post-content figure {
+        margin: var(--space-3) calc(var(--space-2) * -1);
+    }
+
+    .post-figure img,
+    #post-content figure img {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+
+    .post-card .card-title {
+        font-size: var(--step-1);
+    }
+
+    .pager:hover {
+        transform: none;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   19. Motion and contrast preferences
+   ------------------------------------------------------------------------ */
+
+/* Every hover affordance on this site is a translate or scale. Respect the OS
+   setting by keeping colour/border feedback and dropping the movement. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .post-card:hover,
+    .skill-card:hover,
+    .tech-badge:hover,
+    .btn:hover,
+    .pager:hover,
+    .tech-icon-item:hover,
+    .social-icon:hover {
+        transform: none;
+    }
+}
+
+/* If the browser already runs in forced-colors/high-contrast mode, drop the
+   decorative backgrounds that would otherwise flatten against the override. */
+@media (forced-colors: active) {
+    .skill-card,
+    .tech-badge,
+    .post-tag,
+    .post-toc {
+        border: 1px solid CanvasText;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   20. Scroll reveal
+   Elements are visible by default; .reveal-pending is added by theme.js only
+   when IntersectionObserver is available and motion is allowed. So the worst
+   case for a JS error is "no animation", never "invisible content".
+   ------------------------------------------------------------------------ */
+
+.reveal-pending {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+.reveal-pending.is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: opacity 480ms var(--ease), transform 480ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-pending,
+    .reveal-pending.is-revealed {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   21. Section headings
+   Bootstrap's .display-5 renders ~3rem regardless of context, which dwarfed the
+   h3 subsections under it. Cap it so the hierarchy reads top-down.
+   ------------------------------------------------------------------------ */
+.display-3,
+.display-4,
+.display-5 {
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+main.container > section > h2 {
+    font-size: clamp(1.7rem, 1.2rem + 2vw, 2.35rem);
+    margin-bottom: var(--space-4) !important;
+}
+
+main.container > section > h2 + p {
+    max-width: 56ch;
+    margin-inline: auto;
 }

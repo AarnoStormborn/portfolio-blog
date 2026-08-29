@@ -1,0 +1,137 @@
+{
+  "icons": {
+    "python": {
+      "file": "assets/images/tech/python.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/python/python-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 2300
+    },
+    "typescript": {
+      "file": "assets/images/tech/typescript.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/typescript/typescript-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 944
+    },
+    "fastapi": {
+      "file": "assets/images/tech/fastapi.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/fastapi/fastapi-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 3065
+    },
+    "django": {
+      "file": "assets/images/tech/django.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/django/django-plain.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 644
+    },
+    "pytorch": {
+      "file": "assets/images/tech/pytorch.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/pytorch/pytorch-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 404
+    },
+    "opencv": {
+      "file": "assets/images/tech/opencv.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/opencv/opencv-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 1238
+    },
+    "postgresql": {
+      "file": "assets/images/tech/postgresql.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/postgresql/postgresql-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 9179
+    },
+    "redis": {
+      "file": "assets/images/tech/redis.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/redis/redis-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 1729
+    },
+    "docker": {
+      "file": "assets/images/tech/docker.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/docker/docker-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 4453
+    },
+    "aws": {
+      "file": "assets/images/tech/aws.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 3751
+    },
+    "qdrant": {
+      "file": "assets/images/tech/qdrant.svg",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/qdrant.svg",
+      "origin": "simpleLatest",
+      "themed": "mono",
+      "bytes": 276
+    },
+    "linux": {
+      "file": "assets/images/tech/linux.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/linux/linux-plain.svg",
+      "origin": "devicon",
+      "themed": "mono",
+      "bytes": 2840
+    },
+    "github": {
+      "file": "assets/images/tech/github.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/github/github-original.svg",
+      "origin": "devicon",
+      "themed": "mono",
+      "bytes": 1867
+    },
+    "sql": {
+      "file": "assets/images/tech/sql.svg",
+      "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/azuresqldatabase/azuresqldatabase-original.svg",
+      "origin": "devicon",
+      "themed": "color",
+      "bytes": 3233
+    },
+    "openai": {
+      "file": "assets/images/tech/openai.svg",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.5.0/icons/openai.svg",
+      "origin": "simple",
+      "themed": "mono",
+      "bytes": 1586
+    },
+    "anthropic": {
+      "file": "assets/images/tech/anthropic.svg",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.5.0/icons/anthropic.svg",
+      "origin": "simple",
+      "themed": "mono",
+      "bytes": 297
+    },
+    "langgraph": {
+      "file": "assets/images/tech/langgraph.svg",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@15.0.0/icons/langgraph.svg",
+      "origin": "simple15",
+      "themed": "mono",
+      "bytes": 2555
+    },
+    "huggingface": {
+      "file": "assets/images/tech/huggingface.svg",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.5.0/icons/huggingface.svg",
+      "origin": "simple",
+      "themed": "mono",
+      "bytes": 4763
+    },
+    "groq": {
+      "file": "assets/images/tech/groq.svg",
+      "source": "https://groq.com/favicon.svg",
+      "origin": "direct",
+      "themed": "color",
+      "bytes": 362
+    }
+  }
+}
