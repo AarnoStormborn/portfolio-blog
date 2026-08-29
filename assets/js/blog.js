@@ -176,8 +176,6 @@
     )}</a></h2>
           <p class="post-card-meta">${meta.join('<span aria-hidden="true">·</span>')}</p>
           <p class="card-text">${escapeText(post.summary || "")}</p>
-          <a class="btn btn-sm btn-outline-primary" href="${escapeAttr(href)}" tabindex="-1"
-            aria-hidden="true">Read here</a>
         </div>
       </article>`;
     return col;

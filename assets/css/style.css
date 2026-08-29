@@ -559,11 +559,6 @@ body[data-theme='dark'] .post-card {
     z-index: 2;
 }
 
-.post-card .btn {
-    margin-top: auto;
-    align-self: flex-start;
-}
-
 /* ---- 10b. Post pages: layout shell ------------------------------------- */
 
 .post-shell {
