@@ -112,7 +112,7 @@ body[data-theme='dark'] {
 @font-face {
     font-family: 'Jost';
     font-style: normal;
-    font-weight: 300 700;
+    font-weight: 400 700;
     font-display: swap;
     src: url('../fonts/jost-latin.woff2') format('woff2');
 }
